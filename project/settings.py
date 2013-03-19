@@ -1,4 +1,10 @@
-# Django settings for repo project.
+import os
+SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
+ROOT_DIR = os.path.join(
+    os.path.abspath(
+        os.path.join(SETTINGS_DIR, os.path.pardir),
+    ),
+)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -50,18 +56,18 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -69,9 +75,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(ROOT_DIR, 'templates', 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -108,9 +112,7 @@ ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(ROOT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -154,3 +156,21 @@ LOGGING = {
         },
     }
 }
+
+
+EXAMPLE_SCOPE = 'California'
+EXAMPLE_BOUNDARY_SET = 'County'
+EXAMPLE_BOUNDARY_SETS = 'Counties' # plural
+EXAMPLE_BOUNDARY_SET_CODE = 'county'
+EXAMPLE_BOUNDARY_SET_CODE_BIS = 'example-boundary-set-b' # "bis" is latin for "again"
+EXAMPLE_BOUNDARY_SET_RESPONSE = '' # an example JSON response
+EXAMPLE_BOUNDARY = 'Example Boundary'
+EXAMPLE_BOUNDARY_CODE = 'example-boundary'
+EXAMPLE_BOUNDARY_RESPONSE = '' # an example JSON response
+EXAMPLE_PLACE = 'Example Place'
+EXAMPLE_PLACE_LAT_LNG = '32.349549,-95.301829'
+# The first pair of coordinates is the latitude and longitude of the southwest
+# corner of the bounding box. The second pair is for the northeast corner.
+EXAMPLE_PLACE_BBOX = '32.1342,-95.6219,32.6871, -94.9844'
+EXAMPLE_UNIT = 'kilometre'
+EXAMPLE_UNIT_CODE = 'km'
