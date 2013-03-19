@@ -1,39 +1,21 @@
 from datetime import date
-
 from boundaryservice import utils
 
+
 SHAPEFILES = {
-    # This key should be the plural name of the boundaries in this set
-    'City Council Districts': {
-        # Path to a shapefile, relative to /data/shapefiles
-        'file': 'city_council_districts/Council Districts.shp',
-        # Generic singular name for an boundary of from this set
-        'singular': 'City Council District',
-        # Should the singular name come first when creating canonical identifiers for this set?
+    'Counties (2012)': {
+        'file': 'counties/2012/counties.shp',
+        'singular': 'County',
         'kind_first': False,
-        # Function which each feature wall be passed to in order to extract its "external_id" property
-        # The utils module contains several generic functions for doing this
-        'ider': utils.simple_namer(['DISTRICT']),
-        # Function which each feature will be passed to in order to extract its "name" property
-        'namer': utils.simple_namer(['NAME']),
-        # Authority that is responsible for the accuracy of this data
-        'authority': 'Tyler GIS Department',
-        # Geographic extents which the boundary set encompasses
-        'domain': 'Tyler',
-        # Last time the source was checked for new data
-        'last_updated': date(2011, 5, 14),
-        # A url to the source of the data
-        'href': 'http://www.smithcountymapsite.org/webshare/data.html',
-        # Notes identifying any pecularities about the data, such as columns that were deleted or files which were merged
-        'notes': '',
-        # Encoding of the text fields in the shapefile, i.e. 'utf-8'. If this is left empty 'ascii' is assumed
+        'ider': utils.simple_namer(['FIPS']),
+        'namer': utils.simple_namer(['Name']),
+        'authority': 'United States Census Bureau',
+        'domain': 'California',
+        'last_updated': date(2013, 3, 18),
+        'href': 'http://www.census.gov/cgi-bin/geo/shapefiles2012/main',
+        'notes': 'County boundaries clipped at the shoreline. Fields names simplified and many fields removed.',
         'encoding': '',
-        # SRID of the geometry data in the shapefile if it can not be inferred from an accompanying .prj file
-        # This is normally not necessary and can be left undefined or set to an empty string to maintain the default behavior
-        'srid': '',
-        # Simplification tolerance to use when creating the simple_geometry
-        # column for this shapefile, larger numbers create polygons with fewer
-        # points.
+        'srid': '4326',
         'simplification': 0.0001,
     }
 }
