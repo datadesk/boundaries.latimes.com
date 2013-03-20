@@ -12,16 +12,21 @@
 
 {% block content %}
 <div class="row">
-    <div class="span12" id="outside">Outside {{ settings.EXAMPLE_SCOPE }}?
+    <div class="span12" id="outside">
+        Outside {{ settings.EXAMPLE_SCOPE }}?
         <a href="javascript:void(0)" id="use-default-location">
         Jump to {{ settings.EXAMPLE_PLACE }}</a> or drag the pin on the map!
     </div>
 </div>
 
-<div class="row">
-    <div id="wrap" class="span12">
-        <h1 id="page-title">Mapping L.A. Boundaries API</h1>
-        <div id="demo-page" class="page-content">
+<div id="wrap">
+    <div class="row">
+        <div class="span12">
+            <h1 id="page-title">Mapping L.A. Boundaries API</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
             <div id="form-wrapper">
                 <form id="location-form">
                     <input type="text" id="address" name="address" value="{{ default_search_text }}" />
@@ -32,13 +37,17 @@
                 <a href="javascript:void(0)" id="did-you-mean" class="disabled-link">Did you mean...?</a>
                 <div id="alt-addresses"></div>
             </div>
-            <div id="georesults" class="clearfix">
-                <div id="map_canvas"></div>
-                <p id="resultinfo"> 
-                    Waiting for browser ...
-                </p>
-            </div>
-            <div id="area-lookup"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="georesults" class="span12">
+            <div id="map_canvas"></div>
+            <p id="resultinfo">Waiting for browser</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+           <div id="area-lookup"></div>
         </div>
     </div>
 </div>

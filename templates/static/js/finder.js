@@ -125,8 +125,10 @@ function geolocation_error() {
 
 function process_location(lat, lng) {
     $('#resultinfo').html(
-        'Latitude: ' + lat + '<br />' +
-        'Longitude: ' + lng + '<br />'
+        '<table class="table table-bordered table-hover">' +
+        '<tr><td>Latitude</td><td>' + lat + '</td></tr>' +
+        '<tr><td>Longitude</td><td>' + lng + '</td></tr>' +
+        '</table>'
     );
 
     init_map(lat, lng);
