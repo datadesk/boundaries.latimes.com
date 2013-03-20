@@ -89,10 +89,4 @@ body form#location-form input[type="text"] { width: 380px }
     width: 100%;
     height: 400px;
 }
-#wrap #boundaries .selected { background: #6AAFBD }
-#wrap #boundaries td {
-    border: 0;
-    width: 50%;
-    padding: 10px 0;
-    margin: 0;
-}
+

@@ -247,7 +247,7 @@ function display_boundary(slug, no_fit) {
         displayed_polygon = null;
         displayed_slug = null;
 
-        $("#boundaries .selected").removeClass("selected");
+        $("#boundaries .selected").removeClass("info");
     }
 
     // Construct new polygons
@@ -286,7 +286,7 @@ function display_boundary(slug, no_fit) {
     displayed_slug = slug;
     map.addLayer(displayed_polygon);
 
-    $("#boundaries #" + slug).addClass("selected");
+    $("#boundaries #" + slug).addClass("info");
 
     if (!no_fit) {
         map.fitBounds(bounds);
