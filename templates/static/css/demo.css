@@ -1,5 +1,11 @@
 pre { font-family: monospace }
 body form#location-form input[type="text"] { width: 380px }
+body {
+    font-family: Georgia, serif;
+}
+table {
+    font-family: Arial, sans;
+}
 #outside {
     line-height: 140%;
     padding: 10px 0;

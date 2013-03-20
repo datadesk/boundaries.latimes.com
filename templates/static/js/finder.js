@@ -159,7 +159,7 @@ function check_saved_location() {
 }
 
 function check_for_locale(center) {
-    if (!bounding_box.contains(center) && window.location.hash == "#demo") {
+    if (!bounding_box.contains(center)) {
         show_outside();
         outside = true;
     } else {
@@ -392,7 +392,6 @@ function search_focused() {
 
 function address_search() {
     geocode($("#location-form #address").val());
-
     return false;
 }
 

@@ -22,5 +22,4 @@ def index(request):
         context['address'] = address
     except KeyError:
         pass
-    
     return render(request, 'finder/index.html', context)
