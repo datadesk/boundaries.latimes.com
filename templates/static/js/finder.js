@@ -1,3 +1,4 @@
+// Set global variables
 var finder_settings = finder_settings || {},
     finder_setting,
     southwest_limit,
@@ -6,79 +7,65 @@ var finder_settings = finder_settings || {},
     default_lon,
     place;
 
-if (typeof finder_settings.EXAMPLE_PLACE_BBOX !== 'undefined') {
-    finder_setting = finder_settings.EXAMPLE_PLACE_BBOX.split(',');
-    southwest_limit = new L.LatLng(parseFloat(finder_setting[0]), parseFloat(finder_setting[1]));
-    northeast_limit = new L.LatLng(parseFloat(finder_setting[2]), parseFloat(finder_setting[3]));
-}
-else {
-    southwest_limit = new L.LatLng(32.1342, -95.6219);
-    northeast_limit = new L.LatLng(32.6871, -94.9844);
-}
-if (typeof finder_settings.EXAMPLE_PLACE_LAT_LNG !== 'undefined') {
-    finder_setting = finder_settings.EXAMPLE_PLACE_LAT_LNG.split(',');
-    default_lat = parseFloat(finder_setting[0]);
-    default_lon = parseFloat(finder_setting[1]);
-}
-else {
-    default_lat = 32.349549;
-    default_lon = -95.301829;
-}
-if (typeof finder_settings.EXAMPLE_PLACE !== 'undefined') {
-    place = finder_settings.EXAMPLE_PLACE;
-}
-else {
-    place = 'Example Place';
-}
+// Pull in the bbox
+finder_setting = finder_settings.EXAMPLE_PLACE_BBOX.split(',');
+southwest_limit = new L.LatLng(parseFloat(finder_setting[0]), parseFloat(finder_setting[1]));
+northeast_limit = new L.LatLng(parseFloat(finder_setting[2]), parseFloat(finder_setting[3]));
 
+// Pull in the center
+finder_setting = finder_settings.EXAMPLE_PLACE_LAT_LNG.split(',');
+default_lat = parseFloat(finder_setting[0]);
+default_lon = parseFloat(finder_setting[1]);
+
+// Pull in the default place
+place = finder_settings.EXAMPLE_PLACE;
+
+// More globals
 var geolocate_supported = true; // until prove false
 var geocoder = new google.maps.Geocoder();
 var bounding_box = new L.LatLngBounds(southwest_limit, northeast_limit);
 var outside = false; // until prove true
-
 var map = null;
-
 var user_marker = null;
 var displayed_slug = null;
 var displayed_polygon = null;
-
 var boundaries = new Array();
 
+// Bootstrap the map
 function init_map(lat, lng) {
     if (map == null) {
         var ll = new L.LatLng(lat, lng);
-
         map = new L.Map('map_canvas', {
             zoom: 14,
             center: ll,
+            maxZoom: 15,
+            minZoom:8
         });
-
-        tiles = new L.TileLayer("http://mt1.google.com/vt/lyrs=m@155000000&hl=en&x={x}&y={y}&z={z}&s={s}", {
-            maxZoom: 17,
-            attribution: "Map data is Copyright Google, 2011"
+        tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.2.4/{z}/{x}/{y}.png", {
+            attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
+            subdomains: [
+                'tiles1',
+                'tiles2',
+                'tiles3',
+                'tiles4'
+            ]
         });
-        
         map.addLayer(tiles);
     }
-
     var center = new L.LatLng(lat, lng);
     map.panTo(center);
-
     check_for_locale(center);
     resize_listener(center);
 }
 
 function show_user_marker(lat, lng) {
     var ll = new L.LatLng(lat, lng);
-
     if (user_marker != null) {
         map.removeLayer(user_marker);
         user_marker = null;
     }
-
     user_marker = new L.Marker(ll, { draggable: true });
     map.addLayer(user_marker);
-
     user_marker.on('dragend', function() {
         ll = user_marker.getLatLng();
         geocode(ll)
@@ -215,7 +202,7 @@ function alt_addresses(results) {
 
 // Use boundary service to lookup what areas the location falls within
 function get_boundaries(lat, lng) {
-    var table_html = '<h3>This location is within:</h3><table id="boundaries" border="0" cellpadding="0" cellspacing="0">';
+    var table_html = '<h3>This location is within:</h3><table class="table table-bordered table-hover" id="boundaries" border="0" cellpadding="0" cellspacing="0">';
     var query_url = '/1.0/boundary/?limit=100&contains=' + lat + ',' + lng + '';
 
     displayed_kind = null;

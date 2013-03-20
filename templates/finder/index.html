@@ -2,40 +2,46 @@
 
 {% block title %}Mapping L.A. Boundaries API{% endblock %}
 
+{% block banner-ad %}{% endblock %}
+
 {% block extra-css %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/less.css" type="text/css" charset="utf-8"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}css/demo.css" type="text/css" charset="utf-8"/>
 <link href="http://d1qqc1e9kvmdh8.cloudfront.net/js/leaflet-{% if LEAFLET_VERSION %}{{ LEAFLET_VERSION }}{% else %}0.5.0{% endif %}/leaflet.css" media="all" rel="stylesheet" type="text/css" />
 <!--[if lte IE 8]><link rel="stylesheet" href="http://d1qqc1e9kvmdh8.cloudfront.net/js/leaflet-{% if LEAFLET_VERSION %}{{ LEAFLET_VERSION }}{% else %}0.5.0{% endif %}/leaflet.ie.css" /><![endif]-->
 {% endblock %}
 
 {% block content %}
-<div id="outside">Outside {{ settings.EXAMPLE_SCOPE }}?
-    <a href="javascript:void(0)" id="use-default-location">
-    Jump to {{ settings.EXAMPLE_PLACE }}</a> or drag the pin on the map!
-</div>
-<div id="wrap">
-    <h1 id="page-title">Mapping L.A. Boundaries API</h1>
-
-    <div id="demo-page" class="page-content">
-        <div id="form-wrapper">
-            <form id="location-form">
-                <input type="text" id="address" name="address" value="{{ default_search_text }}" />
-                <input type="submit">
-            </form>
-            <a href="javascript:void(0)" id="use-current-location">Use my current location instead</a>
-            <a href="javascript:void(0)" id="not-where-i-am">Wait, that's not where I am</a>
-            <a href="javascript:void(0)" id="did-you-mean" class="disabled-link">Did you mean...?</a>
-            <div id="alt-addresses"></div>
-        </div>
-        <div id="georesults" class="clearfix">
-            <div id="map_canvas"></div>
-            <p id="resultinfo"> 
-                Waiting for browser ...
-            </p>
-        </div>
-        <div id="area-lookup"></div>
+<div class="row">
+    <div class="span12" id="outside">Outside {{ settings.EXAMPLE_SCOPE }}?
+        <a href="javascript:void(0)" id="use-default-location">
+        Jump to {{ settings.EXAMPLE_PLACE }}</a> or drag the pin on the map!
     </div>
+</div>
+
+<div class="row">
+    <div id="wrap" class="span12">
+        <h1 id="page-title">Mapping L.A. Boundaries API</h1>
+        <div id="demo-page" class="page-content">
+            <div id="form-wrapper">
+                <form id="location-form">
+                    <input type="text" id="address" name="address" value="{{ default_search_text }}" />
+                    <input type="submit">
+                </form>
+                <a href="javascript:void(0)" id="use-current-location">Use my current location instead</a>
+                <a href="javascript:void(0)" id="not-where-i-am">Wait, that's not where I am</a>
+                <a href="javascript:void(0)" id="did-you-mean" class="disabled-link">Did you mean...?</a>
+                <div id="alt-addresses"></div>
+            </div>
+            <div id="georesults" class="clearfix">
+                <div id="map_canvas"></div>
+                <p id="resultinfo"> 
+                    Waiting for browser ...
+                </p>
+            </div>
+            <div id="area-lookup"></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block body-bottom %}
