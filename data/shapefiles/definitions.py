@@ -3,10 +3,25 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Los Angeles City Council Districts (2002)': {
+        'file': 'la-city-council/2002/la-city-council-2002.shp',
+        'singular': 'Los Angeles City Council District (2002)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['District'], normalizer=int),
+        'namer': utils.simple_namer(['District'], normalizer=int),
+        'authority': 'Los Angeles County GIS Data Portal',
+        'domain': 'Los Angeles',
+        'last_updated': date(2002, 4, 5),
+        'href': 'http://egis3.lacounty.gov/dataportal/2011/05/02/la-city-council-districts/',
+        'notes': '',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'Los Angeles City Council Districts (2012)': {
         'file': 'la-city-council/2012-adopted/la-city-council.shp',
-        'singular': 'Los Angeles City Council District',
-        'kind_first': True,
+        'singular': 'Los Angeles City Council District (2012)',
+        'kind_first': False,
         'ider': utils.simple_namer(['District'], normalizer=int),
         'namer': utils.simple_namer(['District'], normalizer=int),
         'authority': 'Los Angeles City Council Redistricting Commission',
