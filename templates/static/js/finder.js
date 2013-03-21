@@ -111,7 +111,6 @@ function geolocate() {
 function geolocation_success(position) {
     process_location(position.coords.latitude, position.coords.longitude)
     ll = new L.LatLng(position.coords.latitude, position.coords.longitude);
-
     geocode(ll);
     check_for_locale(ll);
     hide_search()
@@ -125,13 +124,15 @@ function geolocation_error() {
 
 function process_location(lat, lng) {
     $('#resultinfo').html(
-        '<div class="span6"><table class="table table-bordered table-hover">' +
-        '<tr><td>Latitude</td><td>' + lat + '</td></tr>' +
-        '<tr><td>Longitude</td><td>' + lng + '</td></tr>' +
+        '<div class="row"><div class="span12"><h3>This search:</h3></div></div>' +
+        '<div class="row"><div class="span6">' +
+        '<table class="table table-bordered table-hover">' +
+        '<tr><th>Latitude</th><td>' + lat + '</td>' +
+        '<th>Longitude</th><td>' + lng + '</td></tr>' +
         '</table></div>' + 
         '<div class="span6"><table class="table table-bordered table-hover">' + 
-        '<tr><td><a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
-        lat + ',' + lng + '">JSON</a></td></tr></table></div>'
+        '<tr><th>API</th><td><a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
+        lat + ',' + lng + '">JSON</a></td></tr></table></div></div>'
     );
 
     init_map(lat, lng);
@@ -208,7 +209,8 @@ function alt_addresses(results) {
 // Use boundary service to lookup what areas the location falls within
 function get_boundaries(lat, lng) {
     var table_html = '<h3>This location is within:</h3>' +
-        '<table class="table table-bordered table-hover" id="boundaries">';
+        '<table class="table table-bordered table-hover" id="boundaries">' +
+        '<thead><tr><th>Set</th><th>Boundary</th><th>API</th></tr></thead>';
     var query_url = '/1.0/boundary/?limit=100&contains=' + lat + ',' + lng + '';
 
     displayed_kind = null;
@@ -229,8 +231,8 @@ function get_boundaries(lat, lng) {
         $.each(data.objects, function(i, obj) {
             boundaries[obj.slug] = obj;
             table_html += '<tr id="' + obj.slug + '"><td>' + 
-                obj.kind + '</td><td><strong><a href="javascript:display_boundary(\'' 
-                + obj.slug + '\');">' + obj.name + '</a></strong></td>' + 
+                obj.kind + '</td><td><a href="javascript:display_boundary(\'' 
+                + obj.slug + '\');">' + obj.name + '</a></td>' + 
                 '<td><a target="_blank" href="' + obj.resource_uri + '">JSON</a></td>' + '</tr>';
 
             // Try to display a new polygon of the same kind as the last shown

@@ -5,6 +5,7 @@
 {% block banner-ad %}{% endblock %}
 
 {% block extra-css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/fonts.css" type="text/css" charset="utf-8"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}css/demo.css" type="text/css" charset="utf-8"/>
 <link href="http://d1qqc1e9kvmdh8.cloudfront.net/js/leaflet-{% if LEAFLET_VERSION %}{{ LEAFLET_VERSION }}{% else %}0.5.0{% endif %}/leaflet.css" media="all" rel="stylesheet" type="text/css" />
 <!--[if lte IE 8]><link rel="stylesheet" href="http://d1qqc1e9kvmdh8.cloudfront.net/js/leaflet-{% if LEAFLET_VERSION %}{{ LEAFLET_VERSION }}{% else %}0.5.0{% endif %}/leaflet.ie.css" /><![endif]-->
@@ -44,7 +45,7 @@
             <div id="map_canvas"></div>
         </div>
     </div>
-    <div class="row" id="resultinfo"></div>
+    <div id="resultinfo"></div>
     <div class="row">
         <div class="span12">
            <div id="area-lookup"></div>
