@@ -224,7 +224,10 @@ function get_boundaries(lat, lng) {
     $.getJSON(query_url, function(data) {
         $.each(data.objects, function(i, obj) {
             boundaries[obj.slug] = obj;
-            table_html += '<tr id="' + obj.slug + '"><td>' + obj.kind + '</td><td><strong><a href="javascript:display_boundary(\'' + obj.slug + '\');">' + obj.name + '</a></strong></td></td>';
+            table_html += '<tr id="' + obj.slug + '"><td>' + 
+                obj.kind + '</td><td><strong><a href="javascript:display_boundary(\'' 
+                + obj.slug + '\');">' + obj.name + '</a></strong></td>' + 
+                '<td><a target="_blank" href="' + obj.resource_uri + '">JSON</a></td>' + '</tr>';
 
             // Try to display a new polygon of the same kind as the last shown
             if (displayed_kind != null && obj.kind == displayed_kind) {
