@@ -125,10 +125,13 @@ function geolocation_error() {
 
 function process_location(lat, lng) {
     $('#resultinfo').html(
-        '<table class="table table-bordered table-hover">' +
+        '<div class="span6"><table class="table table-bordered table-hover">' +
         '<tr><td>Latitude</td><td>' + lat + '</td></tr>' +
         '<tr><td>Longitude</td><td>' + lng + '</td></tr>' +
-        '</table>'
+        '</table></div>' + 
+        '<div class="span6"><table class="table table-bordered table-hover">' + 
+        '<tr><td><a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
+        lat + ',' + lng + '">JSON</a></td></tr></table></div>'
     );
 
     init_map(lat, lng);
@@ -204,7 +207,8 @@ function alt_addresses(results) {
 
 // Use boundary service to lookup what areas the location falls within
 function get_boundaries(lat, lng) {
-    var table_html = '<h3>This location is within:</h3><table class="table table-bordered table-hover" id="boundaries" border="0" cellpadding="0" cellspacing="0">';
+    var table_html = '<h3>This location is within:</h3>' +
+        '<table class="table table-bordered table-hover" id="boundaries">';
     var query_url = '/1.0/boundary/?limit=100&contains=' + lat + ',' + lng + '';
 
     displayed_kind = null;
