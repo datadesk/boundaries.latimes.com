@@ -131,8 +131,12 @@ function process_location(lat, lng) {
         '<th>Longitude</th><td>' + lng + '</td></tr>' +
         '</table></div>' + 
         '<div class="span6"><table class="table table-bordered table-hover">' + 
-        '<tr><th>API</th><td><a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
-        lat + ',' + lng + '">JSON</a></td></tr></table></div></div>'
+        '<tr><th>API</th><td>' +
+        '<a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
+        lat + ',' + lng + '">JSON</a>, ' +
+        '<a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
+        lat + ',' + lng + '&format=jsonp">JSONP</a>' +
+        '</td></tr></table></div></div>'
     );
 
     init_map(lat, lng);
@@ -233,8 +237,10 @@ function get_boundaries(lat, lng) {
             table_html += '<tr id="' + obj.slug + '"><td>' + 
                 obj.kind + '</td><td><a href="javascript:display_boundary(\'' 
                 + obj.slug + '\');">' + obj.name + '</a></td>' + 
-                '<td><a target="_blank" href="' + obj.resource_uri + '">JSON</a></td>' + '</tr>';
-
+                '<td>' +
+                '<a target="_blank" href="' + obj.resource_uri + '">JSON</a>, ' + 
+                '<a target="_blank" href="' + obj.resource_uri + '?format=jsonp">JSONP</a>' + 
+                '</td></tr>';
             // Try to display a new polygon of the same kind as the last shown
             if (displayed_kind != null && obj.kind == displayed_kind) {
                 for_display = obj; 
