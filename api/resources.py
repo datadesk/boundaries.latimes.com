@@ -3,6 +3,7 @@ import re
 from django.contrib.gis.measure import D
 from tastypie import fields
 from api.serializers import GeoSerializer
+from tastypie.serializers import Serializer
 
 from boundaryservice.authentication import NoOpApiKeyAuthentication
 from boundaryservice.models import BoundarySet, Boundary
@@ -14,7 +15,13 @@ class BoundarySetResource(SluggedResource):
 
     class Meta:
         queryset = BoundarySet.objects.all()
-        serializer = GeoSerializer()
+        serializer = Serializer(
+            formats=['json', 'jsonp'],
+            content_types = {
+                'json': 'application/json',
+                'jsonp': 'text/javascript'
+            }
+        )
         resource_name = 'boundary-set'
         excludes = ['id', 'singular', 'kind_first']
         allowed_methods = ['get']
