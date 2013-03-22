@@ -239,7 +239,8 @@ function get_boundaries(lat, lng) {
                 + obj.slug + '\');">' + obj.name + '</a></td>' + 
                 '<td>' +
                 '<a target="_blank" href="' + obj.resource_uri + '">JSON</a>, ' + 
-                '<a target="_blank" href="' + obj.resource_uri + '?format=jsonp">JSONP</a>' + 
+                '<a target="_blank" href="' + obj.resource_uri + '?format=jsonp">JSONP</a>, ' + 
+                '<a target="_blank" href="' + obj.resource_uri + '?format=kml">KML</a>' + 
                 '</td></tr>';
             // Try to display a new polygon of the same kind as the last shown
             if (displayed_kind != null && obj.kind == displayed_kind) {
