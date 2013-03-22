@@ -240,6 +240,7 @@ function get_boundaries(lat, lng) {
                 '<td>' +
                 '<a target="_blank" href="' + obj.resource_uri + '">JSON</a>, ' + 
                 '<a target="_blank" href="' + obj.resource_uri + '?format=jsonp">JSONP</a>, ' + 
+                '<a target="_blank" href="' + obj.resource_uri + '?format=geojson">GeoJSON</a>, ' + 
                 '<a target="_blank" href="' + obj.resource_uri + '?format=kml">KML</a>' + 
                 '</td></tr>';
             // Try to display a new polygon of the same kind as the last shown
