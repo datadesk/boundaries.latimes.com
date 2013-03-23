@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'', include('api.urls')),
+    (r'', include('boundaryservice.urls')),
     (r'', include('finder.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

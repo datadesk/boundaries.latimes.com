@@ -126,7 +126,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'tastypie',
     'boundaryservice',
-    'api',
 )
 
 # A sample logging configuration. The only tangible logging
