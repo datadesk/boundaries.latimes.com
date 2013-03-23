@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'tastypie',
     'boundaryservice',
+    'toolbox',
 )
 
 LOGGING = {

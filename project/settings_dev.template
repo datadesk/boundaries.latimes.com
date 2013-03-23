@@ -21,5 +21,4 @@ CACHES = {
     }
 }
 STATIC_URL = '/static/'
-AWS_BUCKET_NAME = 'datafoo.latimes.com'
-AWS_STORAGE_BUCKET_NAME = 'datafoo.latimes.com'
+AWS_BUCKET_NAME = 'boundaries.latimes.com'
