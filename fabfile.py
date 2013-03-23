@@ -188,6 +188,16 @@ def _venv(cmd):
         sudo("%s && %s" % (ACTIVATE, cmd), pty=True)
 
 
+def deploy():
+    """
+    Deploy the latest code and restart everything.
+    """
+    pull()
+    with settings(warn_only=True):
+        clean()
+    install_requirements()
+    restart_apache()
+
 #
 # Local
 #
