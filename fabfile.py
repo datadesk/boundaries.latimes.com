@@ -183,9 +183,12 @@ def _venv(cmd):
     """
     A wrapper for running commands in our prod virturalenv
     """
-    env.shell = "/bin/bash -c"
-    with cd(PATH):
-        sudo("%s && %s" % (ACTIVATE, cmd), pty=True)
+    with cd(env.project_dir):
+        sudo(
+            "%s && %s && %s" % (env.activate, env.activate, cmd),
+            pty=True,
+            user=env.app_user
+        )
 
 
 def deploy():
