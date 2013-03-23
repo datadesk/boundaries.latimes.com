@@ -4,7 +4,7 @@ DEBUG_TOOLBAR = False
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'boundaries',
         'USER': 'boundaries', 
         'PASSWORD': '&E0w#7u8#f|,v3{',
