@@ -5,4 +5,4 @@
 888   |  Y888   /  Y88   | |   Y88b| 888   /   /____Y88b  888_-~   888 888       8888 
 888__/    `88_-~    "8__/  |    Y888 888_-~   /      Y88b 888 ~-_  888 888___ \__88P' </code></pre>
 
-An API that serves up local GIS data at [boundaries.latimes.com](http://boundaries.latimes.com).
+An API that serves up local GIS data at "boundaries.latimes.com":http://boundaries.latimes.com.
