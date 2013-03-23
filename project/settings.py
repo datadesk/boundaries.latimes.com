@@ -28,6 +28,7 @@ EMAIL_USE_TLS = True
 
 ALLOWED_HOSTS = [
     'boundaries.latimes.com',
+    '54.245.116.71',
 ]
 TIME_ZONE = 'America/Los_Angeles'
 LANGUAGE_CODE = 'en-us'
