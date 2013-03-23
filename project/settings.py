@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.admin',
+    'django.contrib.humanize',
     'tastypie',
     'boundaryservice',
     'toolbox',
