@@ -1,0 +1,25 @@
+DEBUG = True
+DEVELOPMENT, PRODUCTION = True, False
+DEBUG_TOOLBAR = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'boundaries',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+CACHES = {
+    'default': {
+        #'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+STATIC_URL = '/static/'
+AWS_BUCKET_NAME = 'datafoo.latimes.com'
+AWS_STORAGE_BUCKET_NAME = 'datafoo.latimes.com'

@@ -15,10 +15,6 @@
     "base_packages": [
         "git-core",
         "bash-completion",
-        "zip",
-        "unzip",
-        "libfreetype6-dev",
-        "libjpeg-dev"
     ],
     
     "users": {
@@ -48,39 +44,28 @@
     "apps_password": "datadesk",
     
     "apps": [{
-        "name": "ballots.latimes.com",
-        "repo": "git@github.com:datadesk/ballots.latimes.com.git",
+        "name": "boundaries.latimes.com",
+        "repo": "git@github.com:datadesk/boundaries.latimes.com.git",
         "branch": "master",
-        "db_user": "ballots",
-        "db_name": "ballots",
-        "db_password": "y5cZs^q3*63q-0",
-        "apache_server_name": "ballots.latimes.com",
-        "management": ["loaddb"]
+        "db_user": "boundaries",
+        "db_name": "boundaries",
+        "db_password": "&E0w#7u8#f|,v3{",
+        "apache_server_name": "boundaries.latimes.com",
+        "management": ["loadshapefiles"]
     }],
     
     "apache_port": "8008",
     "varnish_whitelist": [
-        "54.245.224.41"
+        "54.245.116.71"
     ],
     "varnish_ttl": "10m",
     
-    "munin_name": "ballots.latimes.com",
+    "munin_name": "boundaries.latimes.com",
     "munin_db_user": "postgres",
-    "munin_db_name": "ballots",
-    "munin_include_db_list": "ballots",
+    "munin_db_name": "boundaries",
+    "munin_include_db_list": "boundaries",
     
-    "monit_test_ip": "54.245.224.41",
-
-    "riemann": {
-        "server": "54.245.225.218",
-        "hostname": "ip-10-244-1-137"
-    },
+    "monit_test_ip": "54.245.116.71",
     
-    "crons": {
-        "backupdb": {
-            "minute": "2",
-            "hour": "0",
-            "command": "/apps/ballots.latimes.com/bin/python /apps/ballots.latimes.com/repo/manage.py backupdb > /dev/null 2>&1"
-        }
-    }
+    "crons": {}
 }

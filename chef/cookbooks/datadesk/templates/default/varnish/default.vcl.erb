@@ -28,25 +28,6 @@ acl purge_prime {
 }
 
 /*
-* Set a custom hash for the cache key using the user's sessionid (when present).
-*/
-sub vcl_hash {
-    // Build a typical hash
-    hash_data(req.url);
-    if (req.http.host) {
-        hash_data(req.http.host);
-    } else {
-        hash_data(server.ip);
-    }
-    // Add the sessionid cookie where it exists
-    if (req.http.Cookie && req.http.Cookie ~ "ballotssessionid") {
-        hash_data(regsub(req.http.Cookie, "^.*?ballotssessionid=([^;]*);*.*$", "\1"));
-    }
-    // Pass hash out
-    return (hash);
-}
-
-/*
 *
 * Next, configure the "receive" subroutine.
 *
@@ -66,32 +47,6 @@ sub vcl_recv {
         return (pass);
     }
     
-    # Don't cache munin pages
-    if (req.url ~ "^/submit-ballot/") {
-        return (pass);
-    }
-    
-    # Don't cache logins
-    if (req.url ~ "^/login/") {
-        return (pass);
-    }
-    
-    if (req.url ~ "^/login/facebook/") {
-        return (pass);
-    }
-    
-    if (req.url ~ "^/complete/") {
-        return (pass);
-    }
-    
-    if (req.url ~ "^/complete/facebook/") {
-        return (pass);
-    }
-
-    if (req.url ~ "^/bees/") {
-        return (pass);
-    }
-
     if (req.url ~ "^/server-status") {
         return (pass);
     }
@@ -156,13 +111,8 @@ sub vcl_hit {
 sub vcl_fetch {
 
     # Get the response. Set the cache lifetime.
-    if (req.http.Cookie && req.http.Cookie ~ "ballotssessionid") {
-        set beresp.ttl = 30s;
-        set beresp.http.X-Varnish-TTL = "30s";
-    } else {
-        set beresp.ttl = <%= @varnish_ttl %>;
-        set beresp.http.X-Varnish-TTL = "<%= @varnish_ttl %>";
-    }
+    set beresp.ttl = <%= @varnish_ttl %>;
+    set beresp.http.X-Varnish-TTL = "<%= @varnish_ttl %>";
     
     # Indicate that this response is cacheable. This is important.
     set beresp.http.X-Cacheable = "YES";

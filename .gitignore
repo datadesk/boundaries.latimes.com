@@ -1,1 +1,3 @@
+django.log
+project/settings_dev.py
 *.pyc
