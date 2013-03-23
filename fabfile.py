@@ -1,65 +1,133 @@
 from __future__ import with_statement
 from fabric.api import *
 import os
-import urllib
-import urllib2
+import sys
+import time
+import boto
+from os.path import expanduser
 from datetime import datetime
-from BeautifulSoup import BeautifulSoup
-from dateutil.parser import parse as dateparse
+from boto.ec2.connection import EC2Connection
+from fabric.colors import green as _green, yellow as _yellow
+pwd = os.path.dirname(__file__)
+sys.path.append(pwd)
+from pprint import pprint
 
-# The 'otis' machine we're deploying on
-PROD = '172.24.40.21'
-# The directory where the project is kept
-PATH = '/apps/graphics.latimes.com/repo/'
-# Database name
-DATABASE = "graphics"
-# How to turn on the venv
-ACTIVATE = "source /apps/graphics.latimes.com/bin/activate"
-env.user = 'datadesk'
+# Global vars
+env.key_filename = (expanduser("~/.ec2/ben-datadesk.pem"),)
+env.user = 'ubuntu'
+env.known_hosts = "/tmp/tmp_known_hosts_ec2"
+env.chef = '/usr/local/bin/chef-solo -c solo.rb -j node.json'
+env.app_user = 'datadesk'
+env.project_dir = '/apps/boundaries.latimes.com/repo/'
+env.activate = "source /apps/boundaries.latimes.com/bin/activate"
+env.branch = "master"
+env.AWS_SECRET_ACCESS_KEY = 'ca31LpNVIibffmv3X902B0X2defPhCYIF0cMYDY5'
+env.AWS_ACCESS_KEY_ID = 'AKIAJQ6NTQOSSAF7WV6Q'
 
 
-def alert_the_media():
+def new():
+    env.hosts = ("ec2-54-245-48-59.us-west-2.compute.amazonaws.com",)
+
+
+def prod():
+    env.hosts = ("54.245.116.71",)
+
+#
+# Bootstrapping
+#
+
+def create_server(region='us-west-2', ami='ami-1cdd532c',
+    key_name='ben-datadesk', instance_type='m1.small'):
     """
-    Ring the alarm!
-    """
-    local("curl -I http://otis.latimes.com:8008/rollout/")
-
-
-@hosts(PROD)
-def deploy():
-    """
-    Deploy the latest code to Otis and restart everything.
+    Spin up a new server on Amazon EC2.
     
-    Does not rebuild flat files or publish to S3.
+    Returns the id and public address.
     
-    A full rebuild and republish of the site would be:
-        
-        $ fab deploy
-        $ fab build
-        $ fab publish
-        
+    By default, we use Ubuntu 12.04 LTS
     """
-    pull()
-    with settings(warn_only=True):
-        clean()
-    install_requirements()
-    collectstatic()
-    restart_apache()
-    restart_celery()
-    alert_the_media()
+    print("Warming up...")
+    conn = boto.ec2.connect_to_region(
+            region,
+            aws_access_key_id = env.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key = env.AWS_SECRET_ACCESS_KEY,
+    )
+    
+    print("Reserving an instance...")
+    reservation = conn.run_instances(
+        ami,
+        key_name=key_name,
+        instance_type=instance_type,
+    )
+    instance = reservation.instances[0]
+    print('Waiting for instance to start...')
+    # Check up on its status every so often
+    status = instance.update()
+    while status == 'pending':
+        time.sleep(10)
+        status = instance.update()
+    if status == 'running':
+        print('New instance "' + instance.id + '" accessible at ' + instance.public_dns_name)
+    else:
+        print('Instance status: ' + status)
+    return (instance.id, instance.public_dns_name)
 
 
-@hosts(PROD)
-def rollout():
+def install_chef():
     """
-    Deploy the latest code and rebuild and publish the site to S3.
+    Install all the dependencies to run a Chef cookbook
     """
-    deploy()
-    build()
-    publish()
+    # Install dependencies
+    sudo('apt-get update', pty=True)
+    sudo('apt-get install -y git-core rubygems ruby ruby-dev', pty=True)
+    # Screw ruby docs.
+    sudo("echo 'gem: --no-ri --no-rdoc' > /root/.gemrc")
+    sudo("echo 'gem: --no-ri --no-rdoc' > /home/ubuntu/.gemrc")
+    # Install Chef
+    sudo('gem install chef', pty=True)
 
 
-@hosts(PROD)
+def cook():
+    """
+    Update Chef cookbook and execute it.
+    """
+    sudo('mkdir -p /etc/chef')
+    sudo('chown ubuntu -R /etc/chef')
+    local('ssh -i %s -o "StrictHostKeyChecking no" -o "UserKnownHostsFile %s" %s@%s "touch /tmp"' % (
+            env.key_filename[0],
+            env.known_hosts,
+            env.user,
+            env.host_string
+        )
+    )
+    local('rsync -e "ssh -i %s -o \'UserKnownHostsFile %s\'" -av ./chef/ %s@%s:/etc/chef' % (
+            env.key_filename[0],
+            env.known_hosts,
+            env.user,
+            env.host_string
+        )
+    )
+    sudo('cd /etc/chef && %s' % env.chef, pty=True)
+
+
+def bootstrap():
+    """
+    Pull it all together and fire up a new server.
+    
+    Example usage:
+    
+        $ fab new bootstrap
+    
+    """
+    instance_id, public_dns = create_server()
+    # We have to sleep a bit because Amazon reports the server as 'running'
+    # before you can actually SSH in. 
+    print "Give us a sec..."
+    time.sleep(30)
+    with settings(host_string=public_dns):
+        install_chef()
+        cook()
+
+
 def restart_apache():
     """
     Restarts apache on both app servers.
@@ -67,7 +135,6 @@ def restart_apache():
     sudo("/etc/init.d/apache2 reload", pty=True)
 
 
-@hosts(PROD)
 def clean():
     """
     Erases pyc files from our app code directory.
@@ -77,7 +144,6 @@ def clean():
         sudo("find . -name '*.pyc' -print0|xargs -0 rm", pty=True)
 
 
-@hosts(PROD)
 def install_requirements():
     """
     Install the Python requirements.
@@ -85,7 +151,6 @@ def install_requirements():
     _venv("pip install -r requirements.txt")
 
 
-@hosts(PROD)
 def pull():
     """
     Pulls the latest code from github.
@@ -94,26 +159,7 @@ def pull():
     with cd(PATH):
         sudo("git pull origin master;", pty=True)
 
-@hosts(PROD)
-def build():
-    """
-    Rebuild the whole site.
-    """
-    _venv("python manage.py build")
-    with cd(PATH):
-        sudo("chown -R datadesk build")
-        sudo("chgrp -R datadesk build")
 
-
-@hosts(PROD)
-def publish():
-    """
-    Sync files with S3.
-    """
-    _venv("python manage.py publish")
-
-
-@hosts(PROD)
 def syncdb():
     """
     Run python manage.py syncdb over on our prod machine
@@ -121,7 +167,6 @@ def syncdb():
     _venv("python manage.py syncdb")
 
 
-@hosts(PROD)
 def collectstatic():
     """
     Roll out the latest static files
@@ -130,12 +175,10 @@ def collectstatic():
     _venv("python manage.py collectstatic --noinput")
 
 
-@hosts(PROD)
 def manage(cmd):
     _venv("python manage.py %s" % cmd)
 
 
-@hosts(PROD)
 def _venv(cmd):
     """
     A wrapper for running commands in our prod virturalenv
@@ -143,43 +186,6 @@ def _venv(cmd):
     env.shell = "/bin/bash -c"
     with cd(PATH):
         sudo("%s && %s" % (ACTIVATE, cmd), pty=True)
-
-
-@hosts(PROD)
-def restart_celery():
-    """
-    Restarts the celeryd task server
-    """
-    _venv("/etc/init.d/celeryd_graphics restart")
-
-
-@hosts(PROD)
-def stop_celery():
-    """
-    Restarts the celeryd task server
-    """
-    _venv("/etc/init.d/celeryd_graphics stop")
-
-
-@hosts(PROD)
-def kill_celery():
-    sudo("ps auxww | grep celeryd | awk '{print $2}' | xargs kill -9")
-
-
-@hosts(PROD)
-def update_celery_daemon():
-    """
-    Update the celeryd init file on prod.
-    """
-    with settings(warn_only=True):
-        _venv("/etc/init.d/celeryd_graphics stop")
-    source = os.path.join(PATH, 'init.d', 'celeryd_graphics')
-    target = os.path.join('/etc', 'init.d', 'celeryd_graphics')
-    with settings(warn_only=True):
-        sudo("rm %s" % target)
-    sudo("cp %s %s" % (source, target))
-    sudo("chmod +x %s" % target)
-    _venv("/etc/init.d/celeryd_graphics restart")
 
 
 #
@@ -195,190 +201,6 @@ def update_templates():
     local("rm latest.zip")
 
 
-def load_backup(date=None, db_user='postgres'):
-    """
-    Load the database and media backups for a particular day.
-    
-    If no date provided, the latest date is downloaded.
-    """
-    load_media(date)
-    load_db(date, user=db_user)
-
-
-def backup_db():
-    """
-    Back up the database as a cron on the production machine.
-    
-    Can be downloaded from databank.latimes.com
-    
-    This command got it load for me.
-
-        sudo -u postgres pg_restore -Ft -d documents-2011-10-06 /home/ben/Downloads/documents-2011-10-06.tar
-    """
-    from datetime import date
-    fname = "%s-%s.tar" % (DATABASE, str(date.today()))
-    # Runs the dump command, gzips the backup, and moves it to /tmp/
-    local("sudo -u postgres /usr/bin/pg_dump %s -Ft --file=/tmp/%s" % (DATABASE, fname))
-    # Transfers the file from Otis to Databank
-    local("scp /tmp/%s bwelsh@databank.latimes.com:/databank/webservd/dumps/graphics.latimes.com/" % fname)
-    # Deletes the tmp dump
-    local("sudo rm /tmp/%s" % fname)
-
-
-def get_db_backup_urls():
-    """
-    Fetch the list of available database backups
-    """
-    base_url = 'http://databank.latimes.com/dumps/graphics.latimes.com/'
-    soup = BeautifulSoup(urllib2.urlopen(base_url).read())
-    return [base_url + i.get('href')
-        for i in soup.findAll("a") if i.get('href').endswith("tar")
-    ]
-
-
-def get_latest_db_backup_url():
-    """
-    Return the url to download the most recent db backup.
-    """
-    date_dict = {}
-    for url in get_db_backup_urls():
-        file_ = url.split("/")[-1].replace("graphics-", "").replace(".tar", "")
-        year, month, day = map(int, file_.split("-"))
-        date_dict[datetime(year, month, day).date()] = url
-    date_tuple = date_dict.items()
-    date_tuple.sort(key=lambda x:x[1], reverse=True)
-    return date_tuple[0][1]
-
-
-def pull_latest_db():
-    """
-    Pull the latest database snapshot.
-    """
-    url = get_latest_db_backup_url()
-    path = os.path.join(os.path.dirname(__file__), url.split("/")[-1])
-    urllib.urlretrieve(url, path)
-    return path
-
-
-def pull_db(date):
-    """
-    Pull the database snapshot from a particular day.
-    """
-    url_list = get_db_backup_urls()
-    for url in url_list:
-        file_ = url.split("/")[-1].replace("graphics-", "").replace(".tar", "")
-        if file_ == str(date.date()):
-            path = os.path.join(os.path.dirname(__file__), url.split("/")[-1])
-            urllib.urlretrieve(url, path)
-            return path
-    raise ValueError("The date you submitted does not match an existing database snapshot.")
-
-
-def load_db(date=None, user='postgres', name='', drop=False):
-    """
-    Download the latest database snapshot and load it on your system.
-    If you do not specify a date, it will pull the most recent snapshot.
-    """
-    # If the user doesn't provide a date pull the most recent on.
-    if not date:
-        path = pull_latest_db()
-    else:
-        path = pull_db(date=dateparse(date))
-    # If the user doesn't provide one, name the database after the date
-    if not name:
-        name = path.split("/")[-1].replace(".tar", "")
-    # If the user wants you to drop the db first, try that
-    if drop:
-        with settings(warn_only=True):
-            local("sudo -u %s dropdb -U %s %s" % (user, user, name))
-    # Create the database
-    local("sudo -u %s createdb %s" % (user, name))
-    # Load the snapshot
-    local("sudo -u %s pg_restore -Ft -d %s %s" % (user, name, path))
-    # Delete the database file
-    local("rm %s" % path)
-    print "Database '%s' is ready for use. Set it as your database name in settings_dev.py" % name
-
-
-def get_media_backup_urls():
-    """
-    Fetch the list of available media backups
-    """
-    base_url = 'http://databank.latimes.com/dumps/graphics.latimes.com/'
-    soup = BeautifulSoup(urllib2.urlopen(base_url).read())
-    return [base_url + i.get('href')
-        for i in soup.findAll("a") if i.get('href').endswith("zip")
-    ]
-
-
-def get_latest_media_backup_url():
-    """
-    Return the url to download the most recent media backup.
-    """
-    date_dict = {}
-    for url in get_media_backup_urls():
-        file_ = url.split("/")[-1].replace("graphics-media-", "").replace(".zip", "")
-        year, month, day = map(int, file_.split("-"))
-        date_dict[datetime(year, month, day).date()] = url
-    date_tuple = date_dict.items()
-    date_tuple.sort(key=lambda x:x[1], reverse=True)
-    return date_tuple[0][1]
-
-
-def pull_latest_media():
-    """
-    Pull the latest media snapshot.
-    """
-    url = get_latest_media_backup_url()
-    path = os.path.join(os.path.dirname(__file__), url.split("/")[-1])
-    urllib.urlretrieve(url, path)
-    return path
-
-
-def pull_media(date):
-    """
-    Pull the media snapshot from a particular day.
-    """
-    url_list = get_media_backup_urls()
-    for url in url_list:
-        file_ = url.split("/")[-1].replace("graphics-media-", "").replace(".zip", "")
-        if file_ == str(date.date()):
-            path = os.path.join(os.path.dirname(__file__), url.split("/")[-1])
-            urllib.urlretrieve(url, path)
-            return path
-    raise ValueError("The date you submitted does not match an existing media snapshot.")
-
-
-def load_media(date=None):
-    """
-    Download the latest media snapshot and load it on your system.
-    
-    If you do not specify a date, it will pull the most recent snapshot.
-    """
-    if not date:
-        path = pull_latest_media()
-    else:
-        path = pull_media(date=dateparse(date))
-    name = path.split("/")[-1].replace(".zip", "")
-    local("rm -rf ./media/")
-    local("unzip %s" % path)
-    local("rm %s" % path)
-    print "Media snapshot '%s' is ready for use." % name
-
-
-def backup_media():
-    """
-    Back up media as a cron on the production machine.
-
-    Can be downloaded from databank.latimes.com.
-    """
-    from datetime import date
-    fname = "%s-media-%s.zip" % (DATABASE, str(date.today()))
-    local("cd %s && sudo zip -r %s  ./media/*" % (PATH, fname))
-    local("cd %s && scp ./%s bwelsh@databank.latimes.com:/databank/webservd/dumps/graphics.latimes.com/" % (PATH, fname))
-    local("cd %s && sudo rm ./%s" % (PATH, fname))
-
-
 def rmpyc():
     """
     Erases pyc files from current directory.
@@ -391,13 +213,6 @@ def rmpyc():
     print("Removing .pyc files")
     with hide('everything'):
         local("find . -name '*.pyc' -print0|xargs -0 rm", capture=False)
-
-
-def cl():
-    """
-    Fire up the Celery test server
-    """
-    local("python manage.py celeryd -l info --purge --settings=settings")
 
 
 def rs(port=8000):

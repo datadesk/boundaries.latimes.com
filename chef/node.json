@@ -14,7 +14,7 @@
     ],
     "base_packages": [
         "git-core",
-        "bash-completion",
+        "bash-completion"
     ],
     
     "users": {
@@ -51,7 +51,7 @@
         "db_name": "boundaries",
         "db_password": "&E0w#7u8#f|,v3{",
         "apache_server_name": "boundaries.latimes.com",
-        "management": ["loadshapefiles"]
+        "management": []
     }],
     
     "apache_port": "8008",
