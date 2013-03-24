@@ -1,7 +1,7 @@
 Django==1.5
 argparse==1.2.1
 distribute==0.6.24
--e git+ssh://git@github.com/datadesk/django-boundaryservice.git@23e09e0169c27231bac2b26dffdbd17afc7df435#egg=django_boundaryservice-dev
+-e git+ssh://git@github.com/datadesk/django-boundaryservice.git@a797701599590205897faa6940c3e7c242883687#egg=django_boundaryservice-dev
 django-debug-toolbar==0.9.4
 django-tastypie==0.9.12
 mimeparse==0.1.3
