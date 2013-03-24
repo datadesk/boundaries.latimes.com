@@ -155,9 +155,7 @@ def pull():
     """
     Pulls the latest code from github.
     """
-    env.shell = "/bin/bash -c"
-    with cd(PATH):
-        sudo("git pull origin master;", pty=True)
+    _venv("git pull origin master;")
 
 
 def syncdb():
@@ -186,7 +184,6 @@ def _venv(cmd):
     with cd(env.project_dir):
         sudo(
             "%s && %s && %s" % (env.activate, env.activate, cmd),
-            pty=True,
             user=env.app_user
         )
 
