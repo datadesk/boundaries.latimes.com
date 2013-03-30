@@ -83,15 +83,10 @@ function geocode(query) {
 
 function handle_geocode(results, status) {
     alt_addresses(results);
-
     lat = results[0].geometry.location.lat();
     lng = results[0].geometry.location.lng();
-    
-    last_location = [lat, lng];
-    
     normalized_address = results[0].formatted_address;
     $('#location-form #address').val(normalized_address);
-    
     process_location(lat, lng);
 }
 
@@ -110,7 +105,6 @@ function geolocation_success(position) {
     ll = new L.LatLng(position.coords.latitude, position.coords.longitude);
     geocode(ll);
     check_for_locale(ll);
-    hide_search()
 }
 
 function geolocation_error() {
@@ -285,18 +279,6 @@ function display_boundary(slug, no_fit) {
     }
 }
 
-function show_search() {
-    $('#not-where-i-am').hide();
-    if (geolocate_supported) { $('#use-current-location').fadeIn(); }
-    $('#did-you-mean').fadeIn();
-    $('#location-form').slideDown();
-}
-
-function hide_search() {
-    $('#not-where-i-am').show();
-    $('#use-current-location').hide()
-    $('#location-form').slideUp();
-}
 
 function switch_page(page_id) {
     if (outside) {
