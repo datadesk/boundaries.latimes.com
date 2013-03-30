@@ -123,6 +123,8 @@ function geolocation_error() {
 }
 
 function process_location(lat, lng) {
+    lat = Math.round(lat*10000)/10000;
+    lng = Math.round(lng*10000)/10000;
     $('#resultinfo').html(
         '<div class="row"><div class="span12"><h3>This search:</h3></div></div>' +
         '<div class="row"><div class="span6">' +
@@ -138,7 +140,6 @@ function process_location(lat, lng) {
         lat + ',' + lng + '&format=jsonp">JSONP</a>' +
         '</td></tr></table></div></div>'
     );
-
     init_map(lat, lng);
     show_user_marker(lat, lng);
     get_boundaries(lat, lng);
