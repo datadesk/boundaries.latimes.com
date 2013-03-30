@@ -100,9 +100,7 @@ function geolocate() {
         navigator.geolocation.getCurrentPosition(geolocation_success, geolocation_error);
     } else {
         use_default_location();
-
-        $('#resultinfo').html("Your browser does not support determining your location, so we're showing " + place + ".");
-
+        $('#resultinfo').prepend("Your browser does not support determining your location, so we're showing " + place + ".");
         geolocate_supported = false;
     }
 }
@@ -117,8 +115,7 @@ function geolocation_success(position) {
 
 function geolocation_error() {
     use_default_location();
-
-    $('#resultinfo').html("Your browser does not support automatically determining your location so we're showing you " + place + ".");
+    $('#resultinfo').prepend("Your browser does not support automatically determining your location so we're showing you " + place + ".");
 }
 
 function process_location(lat, lng) {
