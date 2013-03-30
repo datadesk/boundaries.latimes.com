@@ -82,7 +82,6 @@ function geocode(query) {
 }
 
 function handle_geocode(results, status) {
-    alt_addresses(results);
     lat = results[0].geometry.location.lat();
     lng = results[0].geometry.location.lng();
     normalized_address = results[0].formatted_address;
@@ -145,39 +144,6 @@ function check_for_locale(center) {
     }
 }
 
-function alt_addresses(results) {
-    $('#alt-addresses').html('');
-
-    keep = new Array();
-
-    $.each(results, function(i,val) {
-        if (i==0) return; // skip the first result
-
-        for (var t in val.types) {
-            if (val.types[t] == 'street_address' || val.types[t] == 'intersection') {
-                keep.push(val.formatted_address);
-                break;
-            }
-        }
-    });
-
-    if (keep.length <= 1) {
-        $('#did-you-mean')
-            .addClass('disabled-link')
-            .unbind();
-    } else {
-        $('#did-you-mean')
-            .removeClass('disabled-link')
-            .click(function(e) { 
-                    e.stopPropagation(); 
-                    toggle_alt_addresses(); 
-                    });
-
-        for (var i in keep) {
-            $('#alt-addresses').append('<a href="javascript:geocode(\'' + keep[i] + '\');">' + keep[i] + '</a><br />');
-        }
-    }
-}
 
 // Use boundary service to lookup what areas the location falls within
 function get_boundaries(lat, lng) {
@@ -334,24 +300,6 @@ function use_default_location() {
     process_location(default_lat, default_lon);
 }
 
-function toggle_alt_addresses() {
-    alt_adds_div = $('#alt-addresses');
-    if (alt_adds_div.is(':hidden')) {
-        show_alt_addresses();
-    } else if (alt_adds_div.is(':visible')) {
-        hide_alt_addresses();
-    }
-}
-
-function show_alt_addresses() {
-    $('#alt-addresses').slideDown(250);
-    $('#did-you-mean').addClass('highlight');
-}
-
-function hide_alt_addresses() {
-    $('#alt-addresses').hide();
-    $('#did-you-mean.highlight').removeClass('highlight');
-}
 
 function search_focused() {
     if(this.value == 'Enter an address or drag the pin on the map') {
@@ -366,11 +314,9 @@ function address_search() {
 
 $(document).ready(function() {
     // Setup handlers
-    $('body').click(hide_alt_addresses);
     $('#not-where-i-am').click(not_where_i_am);
     $('#use-current-location').click(use_current_location);
     $('#use-default-location').click(use_default_location);
-    $('#did-you-mean').click(function(e) { e.stopPropagation(); toggle_alt_addresses(); });
     $('#location-form input[type=text]').focus(search_focused);
     $('#location-form').submit(address_search)
     switch_page();
