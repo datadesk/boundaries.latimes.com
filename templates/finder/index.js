@@ -250,9 +250,7 @@ function switch_page(page_id) {
     if (outside) {
         show_outside();
     }
-
     resize_end_trigger(); 
-
     if (!map) {
        geolocate();
     }
@@ -286,10 +284,6 @@ function resize_end_trigger() {
             $(this).trigger('resize_end'); 
             }, 500);
     });
-}
-
-function not_where_i_am() {
-    show_search();
 }
 
 function use_current_location() {
