@@ -93,7 +93,6 @@ function handle_geocode(results, status) {
     $('#location-form #address').val(normalized_address);
     
     process_location(lat, lng);
-    save_last_location(last_location);
 }
 
 function geolocate() {
@@ -143,28 +142,6 @@ function process_location(lat, lng) {
     init_map(lat, lng);
     show_user_marker(lat, lng);
     get_boundaries(lat, lng);
-}
-
-function save_last_location(location) {
-    store.set('last_location', location);
-}
-
-function get_last_location() {
-    last_location = store.get('last_location');
-    return last_location;
-}
-
-function clear_last_location() {
-    store.remove('last_location');
-}
-
-function check_saved_location() {
-    last_location = get_last_location();
-    if (last_location) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 function check_for_locale(center) {
@@ -332,12 +309,7 @@ function switch_page(page_id) {
     resize_end_trigger(); 
 
     if (!map) {
-        if (check_saved_location()) {
-            last_location = store.get('last_location');
-            geocode(new L.LatLng(last_location[0], last_location[1]));
-        } else {
-            geolocate();
-        }
+       geolocate();
     }
 }
 
