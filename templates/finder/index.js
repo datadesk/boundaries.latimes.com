@@ -308,7 +308,6 @@ function address_search() {
 
 $(document).ready(function() {
     // Setup handlers
-    $('#not-where-i-am').click(not_where_i_am);
     $('#use-current-location').click(use_current_location);
     $('#use-default-location').click(use_default_location);
     $('#location-form input[type=text]').focus(search_focused);
