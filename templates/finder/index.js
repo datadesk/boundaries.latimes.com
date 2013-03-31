@@ -4,6 +4,7 @@ var minY = parseFloat(bbox_string[1]);
 var maxY = parseFloat(bbox_string[3]);
 var minX = parseFloat(bbox_string[0]);
 var maxX = parseFloat(bbox_string[2]);
+
 // In Leaflet
 var southwest_limit = new L.LatLng(minX, minY);
 var northeast_limit = new L.LatLng(maxX, maxY);
@@ -198,31 +199,25 @@ function display_boundary(slug, no_fit) {
         displayed_slug = null;
         $("#boundaries .selected").removeClass("info");
     }
-
     // Construct new polygons
     var coords = boundaries[slug]["simple_shape"].coordinates;
     var paths = [];
     var bounds = null;
-
     $.each(coords, function(i, n){
         $.each(n, function(j, o){
             var path = [];
-
             $.each(o, function(k,p){
                 var ll = new L.LatLng(p[1], p[0]);
                 path.push(ll);
-
                 if (bounds === null) {
                     bounds = new L.LatLngBounds(ll, ll);
                 } else {
                     bounds.extend(ll);
                 }
             });
-
             paths.push(path);
         });
     });
-
     displayed_polygon = new L.Polygon(paths, {
         color: "#244f79",
         opacity: 0.8,
@@ -231,12 +226,9 @@ function display_boundary(slug, no_fit) {
         fillColor: "#244f79",
         fillOpacity: 0.2
     });
-
     displayed_slug = slug;
     map.addLayer(displayed_polygon);
-
     $("#boundaries #" + slug).addClass("info");
-
     if (!no_fit) {
         map.fitBounds(bounds);
     }
@@ -275,11 +267,10 @@ function resize_end_trigger() {
     $(window).resize(function() {
         if (this.resizeto) { 
             clearTimeout(this.resizeto) 
-            };
-
+        };
         this.resizeto = setTimeout(function() { 
             $(this).trigger('resize_end'); 
-            }, 500);
+        }, 500);
     });
 }
 
@@ -325,5 +316,3 @@ $(document).ready(function() {
     });
     switch_page();
 });
-
-
