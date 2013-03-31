@@ -31,7 +31,7 @@ var boundaries = new Array();
 function init_map(lat, lng) {
     if (map == null) {
         var ll = new L.LatLng(lat, lng);
-        map = new L.Map('map_canvas', {
+        map = new L.Map('map-canvas', {
             zoom: 14,
             center: ll,
             maxZoom: 15,
