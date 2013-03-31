@@ -90,7 +90,8 @@ function geolocate() {
         navigator.geolocation.getCurrentPosition(geolocation_success, geolocation_error);
     } else {
         use_default_location();
-        $('#resultinfo').prepend("Your browser does not support determining your location, so we're showing " + place + ".");
+        $('#resultwarning').html("Your browser does not support determining your location, so we're showing " + place + ".");
+        $('#resultwarning').show();
         geolocate_supported = false;
     }
 }
@@ -104,7 +105,8 @@ function geolocation_success(position) {
 
 function geolocation_error() {
     use_default_location();
-    $('#resultinfo').prepend("Your browser does not support automatically determining your location so we're showing you " + place + ".");
+    $('#resultwarning').html("Your browser does not support automatically determining your location so we're showing you " + place + ".");
+    $('#resultwarning').show();
 }
 
 function process_location(lat, lng) {
@@ -296,6 +298,7 @@ $(document).ready(function() {
     $('#location-form').geocodify({
         onSelect: function (result) { 
             var location = result.geometry.location;
+            $('#resultwarning').hide();
             process_location(location.lat(), location.lng());
         },
         initialText: "Enter an address in Southern California",

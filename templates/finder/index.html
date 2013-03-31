@@ -15,18 +15,14 @@
     font-size:18px;
     margin-top: 0;
 }
-#outside {
+#outside, #resultwarning {
     line-height: 140%;
     padding: 10px 0;
-    background: #f1f1f1;
     text-align: center;
     display: none;
 }
 .page-header {
     margin: 10px 0 0 0 !important;
-}
-#resultinfo {
-    width: 100%;
 }
 #map-canvas {
     height: 400px;
@@ -39,6 +35,9 @@ table {
 table th {
     font-family: 'bentongothictabbold', Arial, sans-serif;
     font-weight:normal !important;
+}
+.info {
+    background-color: #D9EDF7;
 }
 </style>
 {% endblock %}
@@ -60,7 +59,7 @@ table th {
 
 {% block content %}
 <div class="row-fluid">
-    <div class="span12" id="outside">
+    <div class="span12 info" id="outside">
         Outside {{ settings.EXAMPLE_SCOPE }}?
         <a href="javascript:void(0)" id="use-default-location">
         Jump to {{ settings.EXAMPLE_PLACE }}</a> or drag the pin on the map!
@@ -84,12 +83,15 @@ table th {
     </div>
 </div>
 
-<div id="resultinfo">
+<div class="row-fluid">
+    <div id="resultwarning" class="span12 info"></div>
 </div>
+
+<div id="resultinfo"></div>
 
 <div class="row-fluid">
     <div class="span12">
-       <div id="area-lookup"></div>
+        <div id="area-lookup"></div>
     </div>
 </div>
 {% endblock %}
