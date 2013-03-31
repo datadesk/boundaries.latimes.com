@@ -1,29 +1,25 @@
-// Set global variables
-var finder_settings = finder_settings || {},
-    finder_setting,
-    southwest_limit,
-    northeast_limit,
-    default_lat,
-    default_lon,
-    place;
-
 // Pull in the bbox
-finder_setting = finder_settings.EXAMPLE_PLACE_BBOX.split(',');
-southwest_limit = new L.LatLng(parseFloat(finder_setting[0]), parseFloat(finder_setting[1]));
-northeast_limit = new L.LatLng(parseFloat(finder_setting[2]), parseFloat(finder_setting[3]));
+var bbox_string = finder_settings.EXAMPLE_PLACE_BBOX.split(',');
+var minY = parseFloat(bbox_string[1]);
+var maxY = parseFloat(bbox_string[3]);
+var minX = parseFloat(bbox_string[0]);
+var maxX = parseFloat(bbox_string[2]);
+// In Leaflet
+var southwest_limit = new L.LatLng(minX, minY);
+var northeast_limit = new L.LatLng(maxX, maxY);
+var bounding_box = new L.LatLngBounds(southwest_limit, northeast_limit);
 
 // Pull in the center
-finder_setting = finder_settings.EXAMPLE_PLACE_LAT_LNG.split(',');
-default_lat = parseFloat(finder_setting[0]);
-default_lon = parseFloat(finder_setting[1]);
+var example_string = finder_settings.EXAMPLE_PLACE_LAT_LNG.split(',');
+var default_lat = parseFloat(example_string[0]);
+var default_lon = parseFloat(example_string[1]);
 
 // Pull in the default place
-place = finder_settings.EXAMPLE_PLACE;
+var place = finder_settings.EXAMPLE_PLACE;
 
 // More globals
 var geolocate_supported = true; // until prove false
 var geocoder = new google.maps.Geocoder();
-var bounding_box = new L.LatLngBounds(southwest_limit, northeast_limit);
 var outside = false; // until prove true
 var map = null;
 var user_marker = null;
@@ -198,7 +194,6 @@ function display_boundary(slug, no_fit) {
         map.removeLayer(displayed_polygon);
         displayed_polygon = null;
         displayed_slug = null;
-
         $("#boundaries .selected").removeClass("info");
     }
 
@@ -290,24 +285,41 @@ function use_default_location() {
     process_location(default_lat, default_lon);
 }
 
-
-function search_focused() {
-    if(this.value == 'Enter an address or drag the pin on the map') {
-        $(this).val("");
-    }
-}
-
 function address_search() {
     geocode($("#location-form #address").val());
     return false;
 }
 
 $(document).ready(function() {
-    // Setup handlers
     $('#use-current-location').click(geolocate);
     $('#use-default-location').click(use_default_location);
-    $('#location-form input[type=text]').focus(search_focused);
-    $('#location-form').submit(address_search)
+    $('#location-form').geocodify({
+        onSelect: function (result) { 
+            var location = result.geometry.location;
+            process_location(location.lat(), location.lng());
+        },
+        initialText: "Enter an address in Southern California",
+        regionBias: 'US',
+        viewportBias: new google.maps.LatLngBounds(
+            new google.maps.LatLng(minX, minY),
+            new google.maps.LatLng(maxX, maxY)
+        ),
+        width: 350,
+        height: 26,
+        fontSize: '14px',
+        filterResults: function(results) {
+         var filteredResults =[];
+         $.each(results, function(i,val) {
+             var location = val.geometry.location;
+             if (location.lng() > minY && location.lng() < maxY) {
+                 if (location.lat() > minX && location.lat() < maxX) {
+                     filteredResults.push(val);
+                }
+             }
+         });
+         return filteredResults;
+        }
+    });
     switch_page();
 });
 

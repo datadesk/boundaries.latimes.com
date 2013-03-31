@@ -168,7 +168,7 @@ EXAMPLE_PLACE = 'Downtown Los Angeles'
 EXAMPLE_PLACE_LAT_LNG = '34.05246386116084,-118.24546337127686'
 # The first pair of coordinates is the latitude and longitude of the southwest
 # corner of the bounding box. The second pair is for the northeast corner.
-EXAMPLE_PLACE_BBOX = '34.02591682124144,-118.27880859375,34.0631834511178, -118.21134567260742'
+EXAMPLE_PLACE_BBOX = '31.5037,-122.3272,36.1912,-112.044'
 EXAMPLE_UNIT = 'kilometre'
 EXAMPLE_UNIT_CODE = 'km'
 
