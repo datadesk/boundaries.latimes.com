@@ -286,10 +286,6 @@ function resize_end_trigger() {
     });
 }
 
-function use_current_location() {
-    geolocate();
-}
-
 function use_default_location() {
     process_location(default_lat, default_lon);
 }
@@ -308,7 +304,7 @@ function address_search() {
 
 $(document).ready(function() {
     // Setup handlers
-    $('#use-current-location').click(use_current_location);
+    $('#use-current-location').click(geolocate);
     $('#use-default-location').click(use_default_location);
     $('#location-form input[type=text]').focus(search_focused);
     $('#location-form').submit(address_search)
