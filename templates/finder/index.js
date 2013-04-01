@@ -137,14 +137,9 @@ function check_for_locale(center) {
 
 // Use boundary service to lookup what areas the location falls within
 function get_boundaries(lat, lng) {
-    var table_html = '<h3>This location is within:</h3>' +
-        '<table class="table table-bordered table-hover" id="boundaries">' +
-        '<thead><tr><th>Set</th><th>Boundary</th><th>API</th></tr></thead>';
     var query_url = '/1.0/boundary/?limit=100&contains=' + lat + ',' + lng + '';
-
     displayed_kind = null;
     for_display = null;
-
     if (displayed_polygon != null) {
         // Hide old polygon
         displayed_kind = boundaries[displayed_slug].kind;
@@ -152,30 +147,21 @@ function get_boundaries(lat, lng) {
         displayed_polygon = null;
         displayed_slug = null;
     }
-
     // Clear old boundaries
     boundaries.length = 0;
-
     $.getJSON(query_url, function(data) {
         $.each(data.objects, function(i, obj) {
             boundaries[obj.slug] = obj;
-            table_html += '<tr id="' + obj.slug + '"><td>' + 
-                obj.kind + '</td><td><a href="javascript:display_boundary(\'' 
-                + obj.slug + '\');">' + obj.name + '</a></td>' + 
-                '<td>' +
-                '<a target="_blank" href="' + obj.resource_uri + '">JSON</a>, ' + 
-                '<a target="_blank" href="' + obj.resource_uri + '?format=jsonp">JSONP</a>, ' + 
-                '<a target="_blank" href="' + obj.resource_uri + '?format=geojson">GeoJSON</a>, ' + 
-                '<a target="_blank" href="' + obj.resource_uri + '?format=kml">KML</a>' + 
-                '</td></tr>';
             // Try to display a new polygon of the same kind as the last shown
             if (displayed_kind != null && obj.kind == displayed_kind) {
                 for_display = obj; 
             }
         });
-        table_html += '</table>';
-        $('#area-lookup').html(table_html);
-
+        $('#area-lookup').html(
+            _.template($("#results_template").html(), {
+                data: data
+            })
+        );
         if (for_display != null) {
             display_boundary(for_display.slug, true);
         }

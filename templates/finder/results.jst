@@ -1,0 +1,28 @@
+<h3>This location is within:</h3>
+<table class="table table-bordered table-hover" id="boundaries">
+    <thead>
+        <tr>
+            <th>Set</th>
+            <th>Boundary</th>
+            <th>API</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% _.each(data.objects, function(obj) { %>
+            <tr id="<%= obj.slug %>">
+                <td><%= obj.kind %></td>
+                <td>
+                    <a href="javascript:display_boundary('<%= obj.slug %>');">
+                        <%= obj.name %>
+                    </a>
+                </td>
+                <td>
+                    <a target="_blank" href="<%= obj.resource_uri %>">JSON</a>,
+                    <a target="_blank" href="<%= obj.resource_uri %>?format=jsonp">JSONP</a>,
+                    <a target="_blank" href="<%= obj.resource_uri %>?format=geojson">GeoJSON</a>,
+                    <a target="_blank" href="<%= obj.resource_uri %>?format=kml">KML</a>
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
