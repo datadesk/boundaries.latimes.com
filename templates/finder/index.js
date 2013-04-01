@@ -114,19 +114,10 @@ function process_location(lat, lng) {
     lat = Math.round(lat*10000)/10000;
     lng = Math.round(lng*10000)/10000;
     $('#resultinfo').html(
-        '<div class="row"><div class="span12"><h3>This search:</h3></div></div>' +
-        '<div class="row"><div class="span6">' +
-        '<table class="table table-bordered table-hover">' +
-        '<tr><th>Latitude</th><td>' + lat + '</td>' +
-        '<th>Longitude</th><td>' + lng + '</td></tr>' +
-        '</table></div>' + 
-        '<div class="span6"><table class="table table-bordered table-hover">' + 
-        '<tr><th>API</th><td>' +
-        '<a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
-        lat + ',' + lng + '">JSON</a>, ' +
-        '<a target="_blank" href="' + '/1.0/boundary/?limit=100&contains=' +
-        lat + ',' + lng + '&format=jsonp">JSONP</a>' +
-        '</td></tr></table></div></div>'
+        _.template($("#search_template").html(), {
+            lat: lat,
+            lng: lng
+        })
     );
     init_map(lat, lng);
     show_user_marker(lat, lng);
