@@ -170,11 +170,11 @@ function get_boundaries(lat, lng) {
 
 function display_boundary(slug, no_fit) {
     // Clear old polygons
+    $("#boundaries .info").removeClass("info");
     if (displayed_polygon != null) {
         map.removeLayer(displayed_polygon);
         displayed_polygon = null;
         displayed_slug = null;
-        $("#boundaries .selected").removeClass("info");
     }
     // Construct new polygons
     var coords = boundaries[slug]["simple_shape"].coordinates;
