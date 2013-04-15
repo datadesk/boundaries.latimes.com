@@ -30,7 +30,6 @@ table th {
 }
 #wrap #page-links { float: right }
 #wrap #page-title {
-    border-bottom: 1px solid #dfdfdf;
     padding-top: 20px;
     clear: both;
 }

@@ -21,8 +21,9 @@
     text-align: center;
     display: none;
 }
-.page-header {
+.header {
     margin: 10px 0 0 0 !important;
+    padding-bottom: 9px
 }
 #map-canvas {
     height: 400px;
@@ -42,6 +43,22 @@ table th {
 #form-wrapper {
     padding: 20px 0 0 50px;
 }
+.navbar .nav>li>a {
+    float: none;
+    padding: 10px 15px 10px;
+    color: white;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.navbar .nav>li>a:hover {
+    float: none;
+    padding: 10px 15px 10px;
+    color: white;
+    text-decoration: underline;
+    text-shadow: none;
+}
+
 </style>
 {% endblock %}
 
@@ -75,7 +92,7 @@ table th {
     </div>
 </div>
 
-<div class="row-fluid page-header">
+<div class="row-fluid header">
     <div class="span7">
         <h1>Mapping L.A. Boundaries API</h1>
     </div>
