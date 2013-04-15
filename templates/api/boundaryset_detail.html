@@ -3,7 +3,8 @@
 {% block content %}
 <div class="row-fluid header">
     <div class="span7">
-        <h1>Mapping L.A. Boundaries API</h1>
+        <h3 class="kicker">Mapping L.A. Boundaries API</h3>
+        <h1>{{ obj }}</h1>
     </div>
 </div>
 
@@ -16,14 +17,8 @@
   </div>
 </div>
 
-{% for obj in object_list %}
 <div class="row-fluid">
     <div class="span12 boundaryset">
-        <h2>
-            <a href="{% url 'api-boundaryset-detail' obj.slug %}">
-                {{ obj }}
-            </a>
-        </h2>
         {% if obj.notes %}<p>{{ obj.notes|safe }}</p>{% endif %}
         <table class="table table-bordered">
             <tbody>
@@ -39,6 +34,5 @@
         </table>
     </div>
 </div>
-{% endfor %}
 
 {% endblock %}

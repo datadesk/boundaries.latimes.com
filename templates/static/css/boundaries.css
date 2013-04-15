@@ -1,12 +1,26 @@
+a {
+    color:#2662CC;
+}
+
 #container h1 { 
     font-family: 'LAHeadline-Regular', Georgia, serif;
     font-size:46px;
+    margin: 0 0 5px 0;
+    padding: 0;
 }
 .container h3 { 
     font-family: 'BentonGothicTabMedium', Arial, sans-serif;
     font-weight:normal;
     font-size:18px;
     margin-top: 0;
+}
+h3.kicker {
+    font-family: 'Belizio-Black', Georgia, serif;
+    text-transform:uppercase;
+    font-size:12px;
+    line-height:12px;
+    padding: 0;
+    margin: 0 0 10px 0;
 }
 #outside, #resultwarning {
     line-height: 140%;
