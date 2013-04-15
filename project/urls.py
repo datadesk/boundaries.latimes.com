@@ -8,6 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'', include('boundaryservice.urls')),
     (r'', include('finder.urls')),
+    (r'', include('api.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 

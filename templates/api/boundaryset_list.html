@@ -1,0 +1,40 @@
+{% extends 'blocks.html' %}
+
+{% block content %}
+<div class="row-fluid header">
+    <div class="span7">
+        <h1>Mapping L.A. Boundaries API</h1>
+    </div>
+</div>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <li><a href="/">Finder</a></li>
+      <li class="active"><a href="/sets/">Data sets</a></li>
+    </ul>
+  </div>
+</div>
+
+{% for obj in object_list %}
+<div class="row-fluid">
+    <div class="span12 boundaryset">
+        <h2>{{ obj }}</h2>
+        {% if obj.notes %}<p>{{ obj.notes|safe }}</p>{% endif %}
+        <table class="table table-bordered">
+            <tbody>
+                <tr><th>Last updated</th><td>{{ obj.last_updated }}</td></tr>
+                <tr><th>Features</th><td>{{ obj.count }}</td></tr>
+                <tr><th>Fields</th><td>{% for f in obj.metadata_fields %}{{ f }}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>
+                <tr><th>Source</th><td>
+                    {% if obj.href %}<a href="{{ obj.href }}">{% endif %}
+                        {{ obj.authority }}
+                    {% if obj.href %}</a>{% endif %}
+                </td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'responsive/base.html' %}
+{% load humanize %}
+
+{% block extra-css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/fonts.css" type="text/css" charset="utf-8"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/boundaries.css" type="text/css" charset="utf-8"/>
+<link href="http://d1qqc1e9kvmdh8.cloudfront.net/js/leaflet-{% if LEAFLET_VERSION %}{{ LEAFLET_VERSION }}{% else %}0.5.0{% endif %}/leaflet.css" media="all" rel="stylesheet" type="text/css" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://d1qqc1e9kvmdh8.cloudfront.net/js/leaflet-{% if LEAFLET_VERSION %}{{ LEAFLET_VERSION }}{% else %}0.5.0{% endif %}/leaflet.ie.css" /><![endif]-->
+{% endblock %}
+
+
+{% block google-analytics-id %}UA-39540586-1{% endblock %}
+{% block chartbeat-domain %}boundaries.latimes.com{% endblock %}
+{% block title %}Mapping L.A. Boundaries API - Data Desk - {{ block.super }}{% endblock %}
+{% block extra-meta %}
+<meta property="og:title" content="Mapping L.A. Boundaries API"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="boundaries.latimes.com"/>
+<meta property="og:description"
+      content="Mapping L.A. Boundaries API"/>
+<meta property="fb:admins" content="1257725335" />
+<meta property="fb:app_id" content="171740782909828" />
+{% endblock %}
+
+{% block banner-ad %}{% endblock %}
+
+{% block omniture-pageName %}Mapping L.A. Boundaries API - Data Desk - boundaries.latimes.com / news / local - db.{% endblock %}
+

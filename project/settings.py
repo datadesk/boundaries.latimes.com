@@ -92,6 +92,8 @@ INSTALLED_APPS = (
     'tastypie',
     'boundaryservice',
     'toolbox',
+    'finder',
+    'api',
 )
 
 LOGGING = {
