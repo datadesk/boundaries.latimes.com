@@ -18,6 +18,12 @@
 </div>
 
 <div class="row-fluid">
+    <div class="span12">
+        <div id="map-canvas"></div>
+    </div>
+</div>
+
+<div class="row-fluid">
     <div class="span12 boundaryset">
         {% if obj.notes %}<p>{{ obj.notes|safe }}</p>{% endif %}
         <table class="table table-bordered">
@@ -30,9 +36,17 @@
                         {{ obj.authority }}
                     {% if obj.href %}</a>{% endif %}
                 </td></tr>
+                <tr><th>Schema</th><td>
+                    <a href="/1.0/boundary-set/{{ obj.slug }}/">JSON</a>, 
+                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=jsonp">JSONP</a>
             </tbody>
         </table>
     </div>
 </div>
+{% endblock %}
 
+{% block body-bottom %}
+<script type="text/javascript">
+    {% include "api/boundaryset_detail.js" %}
+</script>
 {% endblock %}
