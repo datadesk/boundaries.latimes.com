@@ -135,6 +135,13 @@ def restart_apache():
     sudo("/etc/init.d/apache2 reload", pty=True)
 
 
+def restart_varnish():
+    """
+    Restarts apache on both app servers.
+    """
+    sudo("service varnish restart", pty=True)
+
+
 def clean():
     """
     Erases pyc files from our app code directory.

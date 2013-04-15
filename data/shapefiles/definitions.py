@@ -12,7 +12,7 @@ SHAPEFILES = {
         'authority': 'Unknown',
         'domain': 'Los Angeles',
         'last_updated': date(2013, 3, 20),
-        'href': 'http://egis3.lacounty.gov/dataportal/2011/05/02/la-city-council-districts/',
+        'href': '',
         'notes': 'Acquired by former Los Angeles Times reporter Dick O\'Reilly from origins unknown.',
         'encoding': '',
         'srid': '4326',
