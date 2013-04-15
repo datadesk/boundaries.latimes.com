@@ -148,7 +148,7 @@ function get_boundaries(lat, lng) {
         displayed_slug = null;
     }
     // Put in a spinner.
-    $("#area-lookup").html('<center><img src="/static/img/ajax-loader.gif"></center>');
+    $("#area-lookup").html('<center><img src="{{ STATIC_URL }}img/ajax-loader.gif"></center>');
     // Clear old boundaries
     boundaries.length = 0;
     $.getJSON(query_url, function(data) {
