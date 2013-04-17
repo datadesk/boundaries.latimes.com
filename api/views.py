@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+import json
 from boundaryservice.models import BoundarySet
+from django.shortcuts import render, get_object_or_404
 
 
 def boundaryset_list(request):
@@ -17,8 +18,9 @@ def boundaryset_detail(request, slug):
     All about one BoundarySet
     """
     obj = get_object_or_404(BoundarySet, slug=slug)
+    boundary_list = obj.boundaries.all()
     context = {
         'obj': obj,
-        'boundary_list': obj.boundaries.all()
+        'boundary_list': boundary_list
     }
     return render(request, 'api/boundaryset_detail.html', context)

@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Los Angeles County Law Enforcement Reporting Districts': {
+        'file': 'law-enforcement-reporting-districts/la_county.shp',
+        'singular': 'Los Angeles County Law Enforcement Reporting District',
+        'kind_first': False,
+        'ider': utils.simple_namer(['OBJECTID'], normalizer=int),
+        'namer': utils.simple_namer(['LABEL', 'RD']),
+        'authority': 'State of California GeoPortal',
+        'domain': 'Los Angeles County',
+        'last_updated': date(2010, 1, 1),
+        'href': 'http://portal.gis.ca.gov/geoportal/catalog/search/resource/details.page?uuid=%7BD3790AB4-881E-4B18-9217-A4459D9E0720%7D',
+        'notes': 'This dataset contains Reporting Districts (RDs) for all Law Enforcement Jurisdictions in the County of Los Angeles, including Police and Sheriff. Reporting Districts form the basis of crime reporting, organizing crimes into specific areas. This file was originally created by Don Campbell at the LA County Emergency Operations Center over a number of years for the Sheriff Emergency Operations Bureau (EOB) in consultation with various agencies. Dates: Reporting Districts from Cities come from early 2000\'s (unknown time) Sheriff reporting districts are as of January 2010 LAPD reporting districts are as of January 2010',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'Los Angeles City Council Districts (1993)': {
         'file': 'la-city-council/1993/la-city-council-1993.shp',
         'singular': 'Los Angeles City Council District (1993)',
@@ -34,7 +49,7 @@ SHAPEFILES = {
         'simplification': 0.0001,
     },
     'Los Angeles City Council Districts (2012)': {
-        'file': 'la-city-council/2012-adopted/la-city-council.shp',
+        'file': 'la-city-council/2012/la-city-council.shp',
         'singular': 'Los Angeles City Council District (2012)',
         'kind_first': False,
         'ider': utils.simple_namer(['District'], normalizer=int),
@@ -43,7 +58,7 @@ SHAPEFILES = {
         'domain': 'Los Angeles',
         'last_updated': date(2012, 3, 16),
         'href': 'http://redistricting2011.lacity.org/LACITY/approvedMap.html',
-        'notes': '',
+        'notes': 'The final boundaries adopted by the City Council.',
         'encoding': '',
         'srid': '4326',
         'simplification': 0.0001,
