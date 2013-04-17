@@ -1,7 +1,7 @@
+import json as simplejson
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.query import QuerySet
-from django.utils import simplejson
 from django.utils.safestring import mark_safe
 from django.template import Library
 
