@@ -32,6 +32,7 @@ var features = {
             "external_id": "{{ obj.external_id }}",
             "name": "{{ obj.name }}",
             "display_name": "{{ obj.display_name }}",
+            "slug": "{{ obj.slug }}",
             "metadata": {{ obj.metadata|jsonify|safe }}
         },
         "geometry": {{ obj.simple_shape.json|safe }}
@@ -39,19 +40,48 @@ var features = {
     {% endfor %}]
 };
 
+var defaultStyle = {
+    weight: 1,
+    color: "#2662CC",
+    opacity: 0.75,
+    fill: true,
+    fillColor: "#2262CC",
+    fillOpacity: 0.2
+};
+
+var highlightStyle = {
+    weight: 3,
+    color: "#244f79",
+    opacity: 1,
+    fill: true,
+    fillColor: "#2262CC",
+    fillOpacity: 0.5
+};
+
+var selected;
+
 var onEachFeature = function(feature, layer) {
-    layer.setStyle({
-        weight: 1,
-        color: "#2662CC",
-        opacity: 0.75,
-        fillColor: "#2262CC",
-        fillOpacity: 0.2
-    });
-    layer.on("click", function(e) {
-        layer.setStyle({opacity: 1, fillOpacity: 1});
-    })
+    (function(layer, feature) {
+      layer.on("click", function (e) {
+          if (feature.id === selected) {
+            jsonLayer.resetStyle(layer);
+            $('#resultinfo').html("");
+            return false;
+          }
+          jsonLayer.eachLayer(function(l){jsonLayer.resetStyle(l);});
+          layer.setStyle(highlightStyle);
+          $('#resultinfo').html(
+            _.template($("#boundary_template").html(), {
+                obj: feature.properties
+            })
+          );
+          selected = feature.id;
+          return false;
+      });
+    })(layer, feature);
 };
 
 var jsonLayer = new L.geoJson(features, {
+    style: defaultStyle,
     onEachFeature: onEachFeature
 }).addTo(map);

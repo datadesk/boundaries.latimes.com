@@ -24,8 +24,11 @@
     </div>
 </div>
 
+<div id="resultinfo"></div>
+
 <div class="row-fluid">
     <div class="span12 boundaryset">
+        <h3>About this data set</h3>
         {% if obj.notes %}<p>{{ obj.notes|safe }}</p>{% endif %}
         <table class="table table-bordered">
             <tbody>
@@ -47,7 +50,13 @@
 {% endblock %}
 
 {% block body-bottom %}
+<script type="text/jst" id="boundary_template">
+    {% include "api/boundaryset_detail.jst" %}
+</script>
 <script type="text/javascript">
     {% include "api/boundaryset_detail.js" %}
 </script>
 {% endblock %}
+
+
+

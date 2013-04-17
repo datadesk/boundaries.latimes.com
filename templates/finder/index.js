@@ -202,7 +202,7 @@ function display_boundary(slug, no_fit) {
         opacity: 0.8,
         weight: 3,
         fill: true,
-        fillColor: "#244f79",
+        fillColor: "#2262CC",
         fillOpacity: 0.2
     });
     displayed_slug = slug;
