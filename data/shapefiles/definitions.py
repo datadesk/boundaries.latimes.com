@@ -8,7 +8,7 @@ SHAPEFILES = {
         'singular': 'Los Angeles County Law Enforcement Reporting District',
         'kind_first': False,
         'ider': utils.simple_namer(['OBJECTID'], normalizer=int),
-        'namer': utils.simple_namer(['LABEL', 'RD']),
+        'namer': utils.simple_namer(['LABEL', 'RD'], seperator="# "),
         'authority': 'State of California GeoPortal',
         'domain': 'Los Angeles County',
         'last_updated': date(2010, 1, 1),
