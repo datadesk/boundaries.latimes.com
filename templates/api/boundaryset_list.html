@@ -1,4 +1,5 @@
 {% extends 'blocks.html' %}
+{% load humanize %}
 
 {% block content %}
 <div class="row-fluid header">
@@ -28,7 +29,7 @@
         <table class="table table-bordered">
             <tbody>
                 <tr><th>Last updated</th><td>{{ obj.last_updated }}</td></tr>
-                <tr><th>Features</th><td>{{ obj.count }}</td></tr>
+                <tr><th>Features</th><td>{{ obj.count|intcomma }}</td></tr>
                 <tr><th>Fields</th><td>{% for f in obj.metadata_fields %}{{ f }}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>
                 <tr><th>Source</th><td>
                     {% if obj.href %}<a href="{{ obj.href }}">{% endif %}
