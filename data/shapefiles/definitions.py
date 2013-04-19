@@ -13,7 +13,7 @@ SHAPEFILES = {
         'domain': 'Los Angeles County',
         'last_updated': date(2010, 1, 1),
         'href': 'http://portal.gis.ca.gov/geoportal/catalog/search/resource/details.page?uuid=%7BD3790AB4-881E-4B18-9217-A4459D9E0720%7D',
-        'notes': 'Created by Don Campbell at the LA County Emergency Operations Center over a number of years for the Sheriff Emergency Operations Bureau (EOB) in consultation with various agencies. Reporting Districts from Cities come from early 2000\'s (unknown time) Sheriff reporting districts are as of January 2010 LAPD reporting districts are as of January 2010',
+        'notes': 'Reporting Districts from cities come from early 2000\'s. Sheriff reporting districts are as of January 2010. LAPD reporting districts are as of January 2010.',
         'encoding': '',
         'srid': '4326',
         'simplification': 0.0001,
