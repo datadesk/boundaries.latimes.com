@@ -36,6 +36,16 @@
                         {{ obj.authority }}
                     {% if obj.href %}</a>{% endif %}
                 </td></tr>
+                <tr><th>Schema</th><td>
+                    <a href="/1.0/boundary-set/{{ obj.slug }}/">JSON</a>, 
+                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=jsonp">JSONP</a>
+                </td>
+                </tr>
+                <tr><th>Bulk downloads</th><td>
+                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=geojson">GeoJSON</a>, 
+                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=kml">KML</a>
+                </td>
+                </tr>
             </tbody>
         </table>
     </div>
