@@ -1,8 +1,24 @@
 from datetime import date
 from boundaryservice import utils
+from api.utils import simple_utf_namer
 
 
 SHAPEFILES = {
+    'Los Angeles County Neighborhoods (V5)': {
+        'file': 'neighborhoods/v5/neighborhoods.shp',
+        'singular': 'Neighborhood',
+        'kind_first': False,
+        'ider': utils.simple_namer(['slug']),
+        'namer': utils.simple_namer(['name']),
+        'authority': 'Los Angles Times',
+        'domain': 'Los Angeles County',
+        'last_updated': date(2010, 5, 24),
+        'href': 'http://projects.latimes.com/mapping-la/about/',
+        'notes': 'The fifth version of Los Angeles County neighborhoods as defined by the Los Angeles Times',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'Los Angeles County Law Enforcement Reporting Districts': {
         'file': 'law-enforcement-reporting-districts/la_county.shp',
         'singular': 'Los Angeles County Law Enforcement Reporting District',

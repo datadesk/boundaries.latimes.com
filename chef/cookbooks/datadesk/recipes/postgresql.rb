@@ -12,6 +12,10 @@ package "libproj-dev" do
     :upgrade
 end
 
+package "libgdal1-dev" do
+    :upgrade
+end
+
 package "postgresql-9.1-postgis" do
     :upgrade
 end
