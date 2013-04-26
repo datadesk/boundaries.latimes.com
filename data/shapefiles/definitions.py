@@ -1,6 +1,5 @@
 from datetime import date
 from boundaryservice import utils
-from api.utils import simple_utf_namer
 
 
 SHAPEFILES = {
