@@ -3,10 +3,25 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'LAFD First-in Districts': {
+        'file': 'lafd/first-in-districts.shp',
+        'singular': 'LAFD First-in District',
+        'kind_first': True,
+        'ider': utils.simple_namer(['FIRSTIN']),
+        'namer': utils.simple_namer(['FIRSTIN']),
+        'authority': 'Los Angeles Fire Department',
+        'domain': 'Los Angeles City',
+        'last_updated': date(2009, 1, 27),
+        'href': '',
+        'notes': 'The lowest level of administrative organization in the Los Angeles Fire Department',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'LAFD Battalions': {
         'file': 'lafd/battalions.shp',
         'singular': 'LAFD Battalion',
-        'kind_first': False,
+        'kind_first': True,
         'ider': utils.simple_namer(['BATTALION']),
         'namer': utils.simple_namer(['BATTALION']),
         'authority': 'Los Angeles Fire Department',
@@ -21,7 +36,7 @@ SHAPEFILES = {
     'LAFD Divisions': {
         'file': 'lafd/divisions.shp',
         'singular': 'LAFD Division',
-        'kind_first': False,
+        'kind_first': True,
         'ider': utils.simple_namer(['DIVISION']),
         'namer': utils.simple_namer(['DIVISION']),
         'authority': 'Los Angeles Fire Department',
