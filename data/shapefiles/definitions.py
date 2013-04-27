@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'L.A. County Fire Dept. Station Areas': {
+        'file': 'la-county-fd/station-areas.shp',
+        'singular': 'L.A. County Fire Dept. Station Area',
+        'kind_first': True,
+        'ider': utils.simple_namer(['STATID']),
+        'namer': utils.simple_namer(['STATID']),
+        'authority': 'Los Angeles County Fire Department',
+        'domain': 'Los Angeles County',
+        'last_updated': date(2011, 3, 1),
+        'href': '',
+        'notes': 'The administrative organization of the Los Angeles County Fire Department',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'LAFD First-in Districts': {
         'file': 'lafd/first-in-districts.shp',
         'singular': 'LAFD First-in District',
