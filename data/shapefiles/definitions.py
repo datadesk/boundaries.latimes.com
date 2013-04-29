@@ -3,6 +3,36 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Census Tracts (2012)': {
+        'file': 'census-2012/tracts.shp',
+        'singular': 'Census Tract (2012)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['GEOID']),
+        'namer': utils.simple_namer(['NAME']),
+        'authority': 'U.S. Census',
+        'domain': 'California',
+        'last_updated': date(2012, 7, 27),
+        'href': '',
+        'notes': 'Statisical areas defined by the Census Bureau',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
+    'Census Places (2012)': {
+        'file': 'census-2012/places.shp',
+        'singular': 'Census Place (2012)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['NAME']),
+        'namer': utils.simple_namer(['NAME']),
+        'authority': 'U.S. Census',
+        'domain': 'California',
+        'last_updated': date(2012, 7, 27),
+        'href': '',
+        'notes': 'Cities and other census-defined places',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'L.A. County Fire Dept. Station Areas': {
         'file': 'la-county-fd/station-areas.shp',
         'singular': 'L.A. County Fire Dept. Station Area',
