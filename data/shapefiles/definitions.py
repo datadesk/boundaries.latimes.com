@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Census Block Groups (2012)': {
+        'file': 'census-2012/block-groups.shp',
+        'singular': 'Census Block Group (2012)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['GEOID']),
+        'namer': utils.simple_namer(['GEOID']),
+        'authority': 'U.S. Census',
+        'domain': 'Southern California',
+        'last_updated': date(2012, 7, 27),
+        'href': '',
+        'notes': 'Statisical areas defined by the Census Bureau',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'Census Tracts (2012)': {
         'file': 'census-2012/tracts.shp',
         'singular': 'Census Tract (2012)',
@@ -10,7 +25,7 @@ SHAPEFILES = {
         'ider': utils.simple_namer(['GEOID']),
         'namer': utils.simple_namer(['NAME']),
         'authority': 'U.S. Census',
-        'domain': 'California',
+        'domain': 'Southern California',
         'last_updated': date(2012, 7, 27),
         'href': '',
         'notes': 'Statisical areas defined by the Census Bureau',
