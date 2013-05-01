@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Core Based Statistical Areas (2013)': {
+        'file': 'census-2013/cbsa.shp',
+        'singular': 'Core Based Statistical Area (2012)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['CBSAFP']),
+        'namer': utils.simple_namer(['CBSA_Title']),
+        'authority': 'U.S. Census',
+        'domain': 'Southern California',
+        'last_updated': date(2013, 4, 3),
+        'href': '',
+        'notes': 'Statisical areas defined by the Census Bureau',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'ZIP Code Tabulation Areas (2012)': {
         'file': 'census-2012/zcta.shp',
         'singular': 'ZIP Code Tabulation Area (2012)',
