@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'County Subdivisions (2012)': {
+        'file': 'census-2012/county-subdivisions.shp',
+        'singular': 'County Subdivision (2012)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['GEOID']),
+        'namer': utils.simple_namer(['NAME']),
+        'authority': 'U.S. Census',
+        'domain': 'Southern California',
+        'last_updated': date(2012, 7, 27),
+        'href': '',
+        'notes': 'Statisical areas defined by the Census Bureau',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'Core Based Statistical Areas (2013)': {
         'file': 'census-2013/cbsa.shp',
         'singular': 'Core Based Statistical Area (2012)',
