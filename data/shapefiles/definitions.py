@@ -49,7 +49,7 @@ SHAPEFILES = {
         'simplification': 0.0001,
     },
     'Census Blocks (2012)': {
-        'file': 'census-2012/blocks.shp',
+        'file': 'census-2012/blocks-la-county.shp',
         'singular': 'Census Block (2012)',
         'kind_first': False,
         'ider': utils.simple_namer(['GEOID']),
@@ -64,7 +64,7 @@ SHAPEFILES = {
         'simplification': 0.0001,
     },
     'Census Block Groups (2012)': {
-        'file': 'census-2012/block-groups.shp',
+        'file': 'census-2012/block-groups-la-county.shp',
         'singular': 'Census Block Group (2012)',
         'kind_first': False,
         'ider': utils.simple_namer(['GEOID']),
@@ -79,7 +79,7 @@ SHAPEFILES = {
         'simplification': 0.0001,
     },
     'Census Tracts (2012)': {
-        'file': 'census-2012/tracts.shp',
+        'file': 'census-2012/tracts-la-county.shp',
         'singular': 'Census Tract (2012)',
         'kind_first': False,
         'ider': utils.simple_namer(['GEOID']),
