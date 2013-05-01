@@ -148,7 +148,7 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'boundaryservice': {
+        'boundaries': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
             'propagate': True,
