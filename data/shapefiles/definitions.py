@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Local Emergency Medical Services Agencies': {
+        'file': 'lemsas/lemsas.shp',
+        'singular': 'Local Emergency Medical Services Agency',
+        'kind_first': False,
+        'ider': utils.simple_namer(['ABBREV']),
+        'namer': utils.simple_namer(['NAME']),
+        'authority': 'Los Angeles Times',
+        'domain': 'California',
+        'last_updated': date(2012, 12, 21),
+        'href': 'http://datadesk.latimes.com/posts/2012/12/map-of-california-ems-agencies/',
+        'notes': 'The re­gion­al agen­cies that reg­u­late emer­gency med­ic­al ser­vices in Cali­for­nia',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'L.A. County Board of Supervisors Districts (2011)': {
         'file': 'la-county-supervisors/2011/districts.shp',
         'singular': 'L.A. County Board of Supervisors District (2011)',
