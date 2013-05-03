@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'L.A. County Sheriff Reporting Districts': {
+        'file': 'la-county-sheriff/reporting-districts.shp',
+        'singular': 'L.A. County Sheriff Reporting District',
+        'kind_first': False,
+        'ider': utils.simple_namer(['name']),
+        'namer': utils.simple_namer(['name']),
+        'authority': 'L.A. County Sheriff Reporting District',
+        'domain': 'Los Angeles County',
+        'last_updated': date(2011, 12, 23),
+        'href': '',
+        'notes': 'Administrative districts of the Los Angeles County Sheriff\'s Department',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'LAPD Bureaus': {
         'file': 'lapd/bureaus.shp',
         'singular': 'LAPD Bureau',
