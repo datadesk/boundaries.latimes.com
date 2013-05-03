@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'L.A. County Board of Supervisors Districts (2011)': {
+        'file': 'la-county-supervisors/2011/districts.shp',
+        'singular': 'L.A. County Board of Supervisors District (2011)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['DISTRICT']),
+        'namer': utils.simple_namer(['DISTRICT']),
+        'authority': 'L.A. County GIS Data Portal',
+        'domain': 'Los Angeles County',
+        'last_updated': date(2011, 9, 28),
+        'href': 'http://egis3.lacounty.gov/dataportal/2011/09/28/2011-supervisorial-district-boundaries-approved-september-27-2011/l',
+        'notes': 'Political districts for L.A. County Board of Supervisors',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'State Board of Equalization Districts (2011)': {
         'file': 'state-politics-2011/board-of-equalization.shp',
         'singular': 'State Board of Equalization District (2011)',
