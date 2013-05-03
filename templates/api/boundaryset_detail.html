@@ -1,6 +1,8 @@
 {% extends 'blocks.html' %}
 {% load toolbox_tags %}
 
+{% block title %}{{ obj }} - {{ block.super }}{% endblock %}
+
 {% block content %}
 <div class="row-fluid header">
     <div class="span12">
