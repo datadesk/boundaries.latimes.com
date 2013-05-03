@@ -3,6 +3,36 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Service Planning Areas (2012)': {
+        'file': 'spas/2012.shp',
+        'singular': 'Service Planning Area',
+        'kind_first': False,
+        'ider': utils.simple_namer(['SPA_2012']),
+        'namer': utils.simple_namer(['SPA_2012']),
+        'authority': 'L.A. County GIS Data Portal',
+        'domain': 'Los Angeles County',
+        'last_updated': date(2012, 2, 14),
+        'href': 'http://egis3.lacounty.gov/dataportal/2012/03/01/service-planning-areas-spa-2012/',
+        'notes': 'Used by a number of County departments to plan and manage service delivery. Aggregated from Census tracts.',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
+    'Service Planning Areas (2002)': {
+        'file': 'spas/2002.shp',
+        'singular': 'Service Planning Area',
+        'kind_first': False,
+        'ider': utils.simple_namer(['SPA_02']),
+        'namer': utils.simple_namer(['SPA_02']),
+        'authority': 'L.A. County GIS Data Portal',
+        'domain': 'Los Angeles County',
+        'last_updated': date(2009, 11, 07),
+        'href': 'http://egis3.lacounty.gov/dataportal/2009/11/07/service-planning-areas-spa-2002/',
+        'notes': 'Used by a number of County departments to plan and manage service delivery. Aggregated from Census tracts.',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'Local Emergency Medical Services Agencies': {
         'file': 'lemsas/lemsas.shp',
         'singular': 'Local Emergency Medical Services Agency',
