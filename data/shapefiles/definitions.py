@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'LAPD Basic Car Areas': {
+        'file': 'lapd/basic-car-areas.shp',
+        'singular': 'LAPD Basic Car Area',
+        'kind_first': False,
+        'ider': utils.simple_namer(['number']),
+        'namer': utils.simple_namer(['number']),
+        'authority': 'Los Angeles Police Department',
+        'domain': 'Los Angeles city',
+        'last_updated': date(2011, 12, 23),
+        'href': '',
+        'notes': 'Administrative districts of the Los Angeles Police Department',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'LAPD Reporting Districts': {
         'file': 'lapd/reporting-districts.shp',
         'singular': 'LAPD Reporting District',
