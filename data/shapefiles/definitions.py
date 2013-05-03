@@ -5,7 +5,7 @@ from boundaryservice import utils
 SHAPEFILES = {
     'Service Planning Areas (2012)': {
         'file': 'spas/2012.shp',
-        'singular': 'Service Planning Area',
+        'singular': 'Service Planning Area (2012)',
         'kind_first': False,
         'ider': utils.simple_namer(['SPA_2012']),
         'namer': utils.simple_namer(['SPA_2012']),
@@ -20,7 +20,7 @@ SHAPEFILES = {
     },
     'Service Planning Areas (2002)': {
         'file': 'spas/2002.shp',
-        'singular': 'Service Planning Area',
+        'singular': 'Service Planning Area (2002)',
         'kind_first': False,
         'ider': utils.simple_namer(['SPA_02']),
         'namer': utils.simple_namer(['SPA_02']),
