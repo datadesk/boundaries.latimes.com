@@ -17,6 +17,13 @@
   </div>
 </div>
 
+<div class="row-fluid">
+    <div class="span12">
+        <h3>{{ object_list|length }} data set{{ object_list|length|pluralize }} from 
+            {{ source_count|intcomma }} sources with {{ feature_count|intcomma }} features.</h3>
+    </div>
+</div>
+
 {% for obj in object_list %}
 <div class="row-fluid">
     <div class="span12 boundaryset">
