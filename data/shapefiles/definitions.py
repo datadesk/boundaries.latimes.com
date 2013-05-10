@@ -3,6 +3,21 @@ from boundaryservice import utils
 
 
 SHAPEFILES = {
+    'Secondary School Districts (2012)': {
+        'file': 'census-2012/secondary-school-districts.shp',
+        'singular': 'Secondary School District (2012)',
+        'kind_first': False,
+        'ider': utils.simple_namer(['GEOID']),
+        'namer': utils.simple_namer(['NAME']),
+        'authority': 'U.S. Census',
+        'domain': 'California',
+        'last_updated': date(2012, 7, 27),
+        'href': '',
+        'notes': '',
+        'encoding': '',
+        'srid': '4326',
+        'simplification': 0.0001,
+    },
     'Elementary School Districts (2012)': {
         'file': 'census-2012/elementary-school-districts.shp',
         'singular': 'Elementary School District (2012)',
