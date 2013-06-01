@@ -24,41 +24,45 @@
     </div>
 </div>
 
-{% for obj in object_list %}
 <div class="row-fluid">
-    <div class="span12 boundaryset">
-        <h2>
-            <a href="{% url 'api-boundaryset-detail' obj.slug %}">
-                {{ obj }}
-            </a>
-        </h2>
-        {% if obj.notes %}<p>{{ obj.notes|safe }}</p>{% endif %}
-        <table class="table table-bordered">
-            <tbody>
-                <tr><th>Last updated</th><td>{{ obj.last_updated }}</td></tr>
-                <tr><th>Features</th><td>{{ obj.count|intcomma }}</td></tr>
-                <tr><th>Fields</th><td>{% for f in obj.metadata_fields %}{{ f }}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>
-                <tr><th>Domain</th><td>{{ obj.domain }}</td></tr>
-                <tr><th>Source</th><td>
+    <table class="span12 table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Source</th>
+                <th>Features</th>
+                <th>Domain</th>
+                <th>Schema</th>
+                <th>Bulk downloads</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for obj in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'api-boundaryset-detail' obj.slug %}">
+                    {{ obj }}
+                </a>
+            </td>
+            <td>
                     {% if obj.href %}<a href="{{ obj.href }}">{% endif %}
                         {{ obj.authority }}
                     {% if obj.href %}</a>{% endif %}
-                </td></tr>
-                <tr><th>Schema</th><td>
+            </td>
+            <td>{{ obj.count|intcomma }}</td>
+            <td>{{ obj.domain }}</td>
+            <td>
                     <a href="/1.0/boundary-set/{{ obj.slug }}/">JSON</a>, 
                     <a href="/1.0/boundary-set/{{ obj.slug }}/?format=jsonp">JSONP</a>
                 </td>
-                </tr>
-                <tr><th>Bulk downloads</th><td>
+            <td>
                     <a href="/1.0/boundary-set/{{ obj.slug }}/?format=geojson">GeoJSON</a>, 
                     <a href="/1.0/boundary-set/{{ obj.slug }}/?format=kml">KML</a>,
                     <a href="/1.0/boundary-set/{{ obj.slug }}/?format=shp">SHP</a>
                 </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
-{% endfor %}
 
 {% endblock %}
