@@ -1,0 +1,5 @@
+User-agent: *
+Sitemap: http://boundaries.latimes.com/sitemap.xml
+Disallow: /admin/
+Disallow: /1.0/
+Crawl-delay: 5.0

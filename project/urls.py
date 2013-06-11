@@ -1,6 +1,7 @@
 import sitemaps
 from django.conf import settings
 from django.contrib import admin
+from django.views.generic import TemplateView
 from django.conf.urls import patterns, include, url
 from django.views.static import serve as static_serve
 from django.contrib.admin.views.decorators import staff_member_required
@@ -16,6 +17,11 @@ urlpatterns = patterns('',
         {'sitemaps': sitemaps.SITEMAPS}),
     url(r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps.SITEMAPS}),
+    url(r'^robots\.txt$', TemplateView.as_view(
+        template_name='robots.txt',
+        content_type='text/plain',
+    ), name='robots-txt'),
+
 )
 
 if settings.DEBUG:
