@@ -1,3 +1,4 @@
+import sitemaps
 from django.conf import settings
 from django.contrib import admin
 from django.conf.urls import patterns, include, url
@@ -10,6 +11,11 @@ urlpatterns = patterns('',
     (r'', include('finder.urls')),
     (r'', include('api.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    # Pages for machines
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index',
+        {'sitemaps': sitemaps.SITEMAPS}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap',
+        {'sitemaps': sitemaps.SITEMAPS}),
 )
 
 if settings.DEBUG:
