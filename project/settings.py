@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'toolbox',
     'finder',
     'api',
+    'south',
 )
 
 LOGGING = {
