@@ -66,7 +66,6 @@ var onEachFeature = function(feature, layer) {
 
 var reloadLayer = function () {
     var url = "/1.0/boundary/?format=geojson&limit=500&sets={{ obj.slug }}&bbox=" + map.getBounds().toBBoxString();
-    console.log(url);
     $.ajax({
         type: "GET",
         url: url,
