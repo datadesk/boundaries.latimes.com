@@ -1,16 +1,18 @@
 {% load toolbox_tags %}
+var jsonLayer;
+var selected;
 
 var center = new L.LatLng(34.05246386116084,-118.24546337127686);
 var map = new L.Map('map-canvas', {
-    zoom: 14,
+    zoom: 12,
     maxZoom: 16,
-    minZoom:8,
+    minZoom: 12,
     maxBounds: new L.LatLngBounds(
         new L.LatLng(36.1912, -112.044),
         new L.LatLng(31.5037, -122.3272)
     )
 });
-map.setView(center, 8);
+map.setView(center, 12);
 tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.3.0/{z}/{x}/{y}.png", {
     attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
     subdomains: [
@@ -21,23 +23,6 @@ tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.3.0/{z}/{x}/{y}.png",
     ]
 });
 map.addLayer(tiles);
-var features = {
-    "type": "FeatureCollection",
-    "features": [{% for obj in boundary_list %}{
-        "id": {{ obj.id }},
-        "type": "Feature",
-        "properties": {
-            "kind": "{{ obj.kind }}",
-            "external_id": "{{ obj.external_id }}",
-            "name": "{{ obj.name }}",
-            "display_name": "{{ obj.display_name }}",
-            "slug": "{{ obj.slug }}",
-            "metadata": {{ obj.metadata|jsonify|safe }}
-        },
-        "geometry": {{ obj.simple_shape.json|safe }}
-    }{% if not forloop.last %},{% endif %}
-    {% endfor %}]
-};
 
 var defaultStyle = {
     weight: 1,
@@ -57,30 +42,46 @@ var highlightStyle = {
     fillOpacity: 0.5
 };
 
-var selected;
-
 var onEachFeature = function(feature, layer) {
     (function(layer, feature) {
       layer.on("click", function (e) {
-          if (feature.id === selected) {
+          if (feature.properties.external_id === selected) {
             jsonLayer.resetStyle(layer);
             $('#resultinfo').html("");
             return false;
           }
           jsonLayer.eachLayer(function(l){jsonLayer.resetStyle(l);});
           layer.setStyle(highlightStyle);
-          $('#resultinfo').html(
-            _.template($("#boundary_template").html(), {
-                obj: feature.properties
-            })
+          var html = _.template(
+            $("#boundary_template").html(), 
+            {obj: feature.properties}
           );
-          selected = feature.id;
+          $('#resultinfo').html(html);
+          selected = feature.properties.external_id;
           return false;
       });
     })(layer, feature);
 };
 
-var jsonLayer = new L.geoJson(features, {
-    style: defaultStyle,
-    onEachFeature: onEachFeature
-}).addTo(map);
+
+var reloadLayer = function () {
+    var url = "/1.0/boundary/?format=geojson&limit=500&sets={{ obj.slug }}&bbox=" + map.getBounds().toBBoxString();
+    console.log(url);
+    $.ajax({
+        type: "GET",
+        url: url,
+        dataType: 'json',
+        success: function (response) {
+            if (jsonLayer) { map.removeLayer(jsonLayer); }
+            jsonLayer = new L.geoJson(response.geojson, {
+                style: defaultStyle,
+                onEachFeature: onEachFeature
+            }).addTo(map);
+        }
+    });
+}
+reloadLayer();
+map.on('moveend', reloadLayer);
+
+
+
