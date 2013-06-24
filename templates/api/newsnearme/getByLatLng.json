@@ -3,7 +3,7 @@
     "neighborhood": {% if hood %}{
         "name":"{{ hood.name }}",
         "slug":"{{ hood.name|slugify }}",
-        "centroid": {{ hood.simple_shape.centroid.json }}
+        "centroid": {{ hood.simple_shape.centroid.json|safe }}
     }{% else %}null{% endif %},
     "region": {% if region %}{
         "name":"{{ region.name }}",
