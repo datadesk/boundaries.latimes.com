@@ -39,10 +39,6 @@ def newsnearme_list(request):
     """
     Returns list of neighborhoods and regions for Tribune's News Near Me service
     """
-    cache_key = "newsnearme_list"
-    cached_response = cache.get(cache_key, None)
-    if cached_response:
-        return cached_response
     context = {
         'hood_list': Boundary.objects.filter(
             set__slug='la-county-neighborhoods-v5').only("name", "slug", "simple_shape"),
@@ -51,7 +47,6 @@ def newsnearme_list(request):
     }
     response = render(request, 'api/newsnearme/getList.json', context, 
         content_type='application/javascript')
-    cache.set(cache_key, response, 60 * 60 * 72 * 2)
     return response
 
 
