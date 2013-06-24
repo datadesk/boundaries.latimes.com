@@ -1,0 +1,12 @@
+{
+    "search": {{ point.json|safe }},
+    "neighborhood": {% if hood %}{
+        "name":"{{ hood.name }}",
+        "slug":"{{ hood.name|slugify }}",
+        "centroid": {{ hood.simple_shape.centroid.json }}
+    }{% else %}null{% endif %},
+    "region": {% if region %}{
+        "name":"{{ region.name }}",
+        "slug":"{{ region.name|slugify }}"
+    }{% else %}null{% endif %}
+}

@@ -13,5 +13,7 @@ urlpatterns = patterns('',
     # News Near Me custom API endpoints
     url(r'^api/v1/news-near-me/getList.json$', views.newsnearme_list,
         name="api-newsnearme-list"),
+    url(r'^api/v1/news-near-me/getByLatLng.json$', views.newsnearme_detail,
+        name="api-newsnearme-detail"),
 
 )
