@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"
+	 xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+    <name>{{ obj.name }}</name>    
+    <atom:author>      
+      <atom:name>The Los Angeles Times Data Desk</atom:name>    
+    </atom:author>    
+    <atom:link href="http://projects.latimes.com/mapping-la/" />
+    <Style id="transBluePoly">
+      <LineStyle>
+        <width>1.5</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7dff0000</color>
+      </PolyStyle>
+    </Style>
+  <Placemark>
+	<name>{% if obj.name %}{{ obj.name }}{% else %}{{ obj }}{% endif %}</name>
+	<styleUrl>#transBluePoly</styleUrl>
+	{{ obj.polygon_4326.kml|safe }}
+  </Placemark>
+
+</Document>
+</kml>

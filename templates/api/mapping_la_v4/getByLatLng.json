@@ -1,0 +1,7 @@
+{
+    "status": "OK",
+    "search": {{ point.geojson|safe }},
+    "name":"{{ object.name }}",
+    "slug":"{{ object.name|slugify }}",
+    "boundaries": {{ object.shape.geojson|safe }}
+}

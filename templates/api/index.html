@@ -1,0 +1,154 @@
+{% extends "mapping_la_v4/blocks.html" %}
+{% load media_url %}
+
+{% block omniture-pageName %}API - {{ block.super }}{% endblock %}
+{% block title %}API - Mapping L.A. - Data Desk - Los Angeles Times{% endblock %}
+
+{% block keywords %}kml, boundaries, shapes, api, {{ block.super }}{% endblock %}
+
+{% block rightrail %}
+<div id="rail">
+    
+    {% include "mapping_la_v4/rightrail/explainers/index.html" %}
+    {% include "base/bordered_cube_ad.html" %}
+    {% include "mapping_la_v4/rightrail/search.html" %}
+    {% include "base/stay_connected.html" %}
+
+</div>
+{% endblock %}
+
+{% block content %}
+
+    <h2 class="pad10vert" style="font-size:22px; color:black; vertical-align: bottom;">
+        About the API
+    </h2>
+
+    <p style="margin-bottom:8px;">
+        The API helps Web developers publish data from 
+        <a href="{% url mapping-la-v4-index %}">Mapping L.A.</a> on other websites.
+    <p>
+
+    <p style="margin-bottom:8px;">
+        The methods here are offered as an experiment.
+        If there are any changes we can make to better provide the data we publish,
+        please <a href="mailto:ben.welsh@latimes.com">contact Ben Welsh</a> with ideas, suggestions or criticisms. 
+    </p>
+
+    <div style="font-size:16px; padding-bottom:6px;">
+        API methods
+    </div>
+
+    <ul class="bullets" style="margin-left:30px;">
+        <li style="padding-top:4px;"><a href="#boundaries">Boundaries</a></li>
+        <ul class="bullets" style="margin-left:30px;">
+            <li style="padding-top:4px;"><a href="#getlist">getList</a></li>
+            <li style="padding-top:4px;"><a href="#getbyslug">getBySlug</a></li>
+            <li style="padding-top:4px;"><a href="#getbylatlng">getByLatLng</a></li>
+        </ul>
+        <li style="padding-top:4px;"><a href="#wrappers">Wrappers</a></li>
+        <ul class="bullets" style="margin-left:30px;">
+            <li style="padding-top:4px;"><a href="#python">Python</a></li>
+        </ul>
+    </ul>
+
+    <a name="boundaries"></a>
+    <h2 class="pad10vert" style="font-size:22px; color:black; vertical-align: bottom;">
+        Boundaries
+    </h2>
+
+    <p style="margin-bottom:8px;">
+        The Times&rsquo; regional and neighborhood boundaries are available under a 
+        <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/">Creative Commons Attribution-Noncommercial-Share Alike</a> license.
+        That means you can share and remix them for non-commercial work as long as you credit The Times and release your creations under the same terms.
+    </p>
+    
+    <p style="margin-bottom:8px;">
+        All region and neighborhood pages include links to boundaries in
+        <a href="http://en.wikipedia.org/wiki/World_Geodetic_System">WGS 84</a> projection
+        in <a href="http://en.wikipedia.org/wiki/Keyhole_Markup_Language">KML</a>, 
+        <a href="http://earth.google.com/outreach/tutorial_kmz.html">KMZ</a> 
+        and <a href="http://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> format.
+        The files are easily portable to other online mapping systems. For instance,
+        here is <a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=http:%2F%2Fprojects.latimes.com%2Fmapping-la%2Fapi%2Fneighborhoods%2Fneighborhood%2Fhollywood%2Fkml%2Fboundaries.kml&ie=UTF8&ll=34.09162,-118.335114&spn=0.098659,0.134411&z=13">a Google Map of The Times' definition of Hollywood</a>.
+    </p>
+
+    <!-- getList -->
+    <a name="getlist"></a>
+    <div style="padding:12px; margin:8px 0; background-color:#E8E8E8;">
+        <div style="padding-bottom:6px; font-family:Arial;">
+            <strong>getList</strong>
+        </div>
+        <p style="margin-bottom:8px;">
+            Returns a list of all neighborhoods or regions.
+        </p>
+        <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Scheme: /mapping-la/api/v1/&lt;area_type&gt;/getList.&lt;format&gt;/</code></pre></p>
+        <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Area types: neighborhood | region</code></pre></p>
+        <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Formats: xml | json</code></pre></p>
+        <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Example: <a href="{% url mapping-la-v4-api-call 'neighborhood', 'getList', 'json' %}">{% url mapping-la-v4-api-call 'neighborhood', 'getList', 'json' %}</a></code></pre></p>
+    </div>
+
+    <!-- getBySlug -->
+    <a name="getbyslug"></a>
+    <div style="padding:12px; margin:8px 0; background-color:#E8E8E8;">
+        <div style="padding-bottom:6px; font-family:Arial;">
+            <strong>getBySlug</strong>
+        </div>
+
+        <p style="margin-bottom:8px;">
+            Returns the boundaries of a single neighborhood or region specified by its unique slug.
+        </p>
+        <p style="margin-bottom:8px;"><p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Scheme: /mapping-la/api/v1/&lt;area_type&gt;/getBySlug.&lt;format&gt;/?slug=&lt;slug&gt;</code></pre></p>
+        <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Area types: neighborhood | region</code></pre></p>
+        <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Formats: kml | kmz | json</code></pre></p>
+        <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Slugs: Call <a href="#getlist">getList</a> for a complete set</code></pre></p>
+        <p style="margin-bottom:8px;"><p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Example: <a href="{% url mapping-la-v4-api-call 'neighborhood', 'getBySlug', 'json' %}?slug=downtown">{% url mapping-la-v4-api-call 'neighborhood', 'getBySlug', 'json' %}?slug=downtown</a></code></pre></p>
+    </div>
+
+    <!-- getByLatLng -->
+    <a name="getbylatlng"></a>
+    <div style="padding:12px; margin:8px 0; background-color:#E8E8E8;">
+    <div style="padding-bottom:6px; font-family:Arial;">
+        <strong>getByLatLng</strong>
+    </div>
+
+    <p style="margin-bottom:8px;">
+        Returns the boundaries of the neighborhood or region that contains a set of latitude and longitude coordinates.
+    </p>
+    <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Scheme: /mapping-la/api/v1/&lt;area_type&gt;/getByLatLng.&lt;format&gt;/?lat=&lt;latitude&gt;&lng=&lt;longitude&gt;</code></pre></p>
+    <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Area types: neighborhood | region</code></pre></p>
+    <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Formats: kml | kmz | json</code></pre></p>
+    <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Latitude & Longitude: Decimal degrees in <a href="http://en.wikipedia.org/wiki/World_Geodetic_System">WGS 84</a> projection</code></pre></p>
+    <p style="margin-bottom:8px;"><pre style="overflow:auto;"><code>Example: <a href="{% url mapping-la-v4-api-call 'region', 'getByLatLng', 'kml' %}?lat=34.053&lng=-118.245">{% url mapping-la-v4-api-call 'region', 'getByLatLng', 'kml' %}?lat=34.053&lng=-118.245</a></code></pre></p>
+    </div>
+
+    <!-- Wrappers -->
+    <a name="wrappers"></a>
+    <h2 class="pad10vert" style="font-size:22px; color:black; vertical-align: bottom;">
+        Wrappers
+    </h2>
+
+    <!-- Python -->
+    <a name="python"></a>
+    <div style="padding:12px; margin:8px 0; background-color:#E8E8E8;">
+        <div style="padding-bottom:6px; font-family:Arial;">
+            <strong>Python</strong>
+        </div>
+
+        <p style="margin-bottom:8px;">
+           A Python wrapper is available on Github at  <a href="https://github.com/datadesk/latimes-mappingla-api">latimes-mappingla-api</a>.
+        </p>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

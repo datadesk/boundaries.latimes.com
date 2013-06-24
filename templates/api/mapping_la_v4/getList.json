@@ -1,0 +1,10 @@
+{{% load misc_tags %}
+    "status":"OK",
+    "{{ model_name_plural }}":[
+        {% for object in object_list %}{
+            "slug":"{{ object.name|slugify|escapejs }}",
+            "name":"{{ object.name|escapejs }}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+}

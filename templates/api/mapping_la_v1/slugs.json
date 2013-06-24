@@ -1,0 +1,12 @@
+{
+    "title": "Mapping L.A. Slugs",
+    "link": "http://projects.latimes.com/mapping-la/",
+    "description": "",
+    "modified": "",
+    "generator": "http://projects.latimes.com/",
+    "items": {
+        "neighborhoods": [{% for object in hood_list %}"{{ object.slug }}"{% if not forloop.last %},{% endif %}{% endfor %}],
+        "regions": [{% for object in region_list %}"{{ object.slug }}"{% if not forloop.last %},{% endif %}{% endfor %}]
+    }
+}
+

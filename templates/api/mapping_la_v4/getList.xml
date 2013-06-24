@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+    <status>OK</status>
+    <{{ model_name_plural }}>
+        {% for object in object_list %}
+        <{{ model_name }}>
+            <slug>{{ object.name|slugify }}</slug>
+            <name>{{ object.name }}</name>
+        </{{ model_name }}>
+        {% endfor %}
+    </{{ model_name_plural }}>
+</response>

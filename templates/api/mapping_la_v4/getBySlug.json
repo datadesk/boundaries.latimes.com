@@ -1,0 +1,6 @@
+{
+    "status": "OK",
+    "name":"{{ object.name }}",
+    "slug":"{{ object.name|slugify }}",
+    "boundaries": {{ object.shape.geojson|safe }}
+}
