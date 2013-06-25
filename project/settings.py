@@ -98,18 +98,31 @@ INSTALLED_APPS = (
     'south',
 )
 
+from django.core.exceptions import SuspiciousOperation
+
+def skip_suspicious_operations(record):
+  if record.exc_info:
+    exc_value = record.exc_info[1]
+    if isinstance(exc_value, SuspiciousOperation):
+      return False
+  return True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
+        },
+        'skip_suspicious_operations': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': skip_suspicious_operations,
+         },
     },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            'filters': ['require_debug_false', 'skip_suspicious_operations'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'null': {
