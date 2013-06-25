@@ -22,4 +22,15 @@ urlpatterns = patterns('',
         'api.views.mapping_la_v4.api_call',
         name="mapping-la-v4-api-call"),
     
+    # Mapping LA (V1) API urls
+    url(r'^api/neighborhoods/neighborhood/(?P<slug>[-\w]+)/kml/boundaries.kml$', 
+        'api.views.mapping_la_v1.neighborhood_kml',
+        name="mapping-la-v1-kml-by-hood"),
+    url(r'^api/neighborhoods/region/(?P<slug>[-\w]+)/kml/boundaries.kml$', 
+        'api.views.mapping_la_v1.region_kml',
+        name="mapping-la-v1-kml-by-region"),
+    url(r'^api/neighborhoods/slugs/json/$',
+        'api.views.mapping_la_v1.slugs_json',
+        name="mapping-la-v1-slug-json"),
+
 )

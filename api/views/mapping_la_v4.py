@@ -133,8 +133,11 @@ def get_by_slug(request, qs, format):
     # Pull the data
     try:
         obj = qs.only('name', 'slug', 'shape').get(slug__startswith=slug)
-    except:
+    except qs.model.DoesNotExist:
         raise Http404
+    except qs.model.MultipleObjectsReturned:
+        l = qs.only('name', 'slug', 'shape').filter(slug__startswith=slug)
+        obj = [i for i in l if i.metadata['slug'] == slug][0]
 
     context = {
         'method': 'getBySlug',

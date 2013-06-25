@@ -5,8 +5,8 @@
     "modified": "",
     "generator": "http://projects.latimes.com/",
     "items": {
-        "neighborhoods": [{% for object in hood_list %}"{{ object.slug }}"{% if not forloop.last %},{% endif %}{% endfor %}],
-        "regions": [{% for object in region_list %}"{{ object.slug }}"{% if not forloop.last %},{% endif %}{% endfor %}]
+        "neighborhoods": [{% for object in hood_list %}"{{ object.name|slugify }}"{% if not forloop.last %},{% endif %}{% endfor %}],
+        "regions": [{% for object in region_list %}"{{ object.name|slugify }}"{% if not forloop.last %},{% endif %}{% endfor %}]
     }
 }
 

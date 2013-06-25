@@ -6,7 +6,7 @@
     <atom:author>      
       <atom:name>The Los Angeles Times Data Desk</atom:name>    
     </atom:author>    
-    <atom:link href="http://projects.latimes.com/mapping-la/" />
+    <atom:link href="http://boundaries.latimes.com/" />
     <Style id="transBluePoly">
       <LineStyle>
         <width>1.5</width>
@@ -18,7 +18,7 @@
   <Placemark>
 	<name>{% if obj.name %}{{ obj.name }}{% else %}{{ obj }}{% endif %}</name>
 	<styleUrl>#transBluePoly</styleUrl>
-	{{ obj.polygon_4326.kml|safe }}
+	{{ obj.shape.kml|safe }}
   </Placemark>
 
 </Document>
