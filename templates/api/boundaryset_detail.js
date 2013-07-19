@@ -1,18 +1,19 @@
 {% load toolbox_tags %}
 var jsonLayer;
 var selected;
+var minZoom = {% if obj.count < 500 %}8{% else %}12{% endif %};
 
 var center = new L.LatLng(34.05246386116084,-118.24546337127686);
 var map = new L.Map('map-canvas', {
-    zoom: 12,
+    zoom: minZoom,
     maxZoom: 16,
-    minZoom: 12,
+    minZoom: minZoom,
     maxBounds: new L.LatLngBounds(
         new L.LatLng(36.1912, -112.044),
         new L.LatLng(31.5037, -122.3272)
     )
 });
-map.setView(center, 12);
+map.setView(center, minZoom);
 tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.3.0/{z}/{x}/{y}.png", {
     attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
     subdomains: [
