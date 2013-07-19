@@ -67,5 +67,11 @@
     
     "monit_test_ip": "54.245.116.71",
     
-    "crons": {}
+    "crons": {
+        "db-backup": {
+            "hour": "7",
+            "minute": "0",
+            "command": "/apps/boundaries.latimes.com/bin/python /apps/boundaries.latimes.com/repo/manage.py backupdb"
+        }
+    }
 }
