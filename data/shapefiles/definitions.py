@@ -498,9 +498,9 @@ SHAPEFILES = {
         'srid': '4326',
         'simplification': 0.0001,
     },
-    'L.A. County Regions (V5)': {
+    'Los Angeles County Regions (V5)': {
         'file': 'neighborhoods/v5/regions.shp',
-        'singular': 'L.A. County Region (V5)',
+        'singular': 'Los Angeles County Region (V5)',
         'kind_first': False,
         'ider': utils.simple_namer(['slug']),
         'namer': utils.simple_namer(['name']),
@@ -513,9 +513,9 @@ SHAPEFILES = {
         'srid': '4326',
         'simplification': 0.0001,
     },
-    'L.A. County Municipal Regions (V5)': {
+    'Los Angeles County Municipal Regions (V5)': {
         'file': 'neighborhoods/v5/municipalregions.shp',
-        'singular': 'L.A. County Municipal Region (V5)',
+        'singular': 'Los Angeles County Municipal Region (V5)',
         'kind_first': False,
         'ider': utils.simple_namer(['slug']),
         'namer': utils.simple_namer(['name']),
@@ -528,9 +528,9 @@ SHAPEFILES = {
         'srid': '4326',
         'simplification': 0.0001,
     },
-    'L.A. County Neighborhoods (V5)': {
+    'Los Angeles County Neighborhoods (V5)': {
         'file': 'neighborhoods/v5/neighborhoods.shp',
-        'singular': 'L.A. County Neighborhood (V5)',
+        'singular': 'Los Angeles County Neighborhood (V5)',
         'kind_first': False,
         'ider': utils.simple_namer(['slug']),
         'namer': utils.simple_namer(['name']),
@@ -558,9 +558,9 @@ SHAPEFILES = {
 #        'srid': '4326',
 #        'simplification': 0.0001,
 #    },
-    'L.A. City Council Districts (1993)': {
+    'Los Angeles City Council Districts (1993)': {
         'file': 'la-city-council/1993/la-city-council-1993.shp',
-        'singular': 'L.A. City Council District (1993)',
+        'singular': 'Los Angeles City Council District (1993)',
         'kind_first': False,
         'ider': utils.simple_namer(['District'], normalizer=int),
         'namer': utils.simple_namer(['District'], normalizer=int),
@@ -573,9 +573,9 @@ SHAPEFILES = {
         'srid': '4326',
         'simplification': 0.0001,
     },
-    'L.A. City Council Districts (2002)': {
+    'Los Angeles City Council Districts (2002)': {
         'file': 'la-city-council/2002/la-city-council-2002.shp',
-        'singular': 'L.A. City Council District (2002)',
+        'singular': 'Los Angeles City Council District (2002)',
         'kind_first': False,
         'ider': utils.simple_namer(['District'], normalizer=int),
         'namer': utils.simple_namer(['District'], normalizer=int),
@@ -588,9 +588,9 @@ SHAPEFILES = {
         'srid': '4326',
         'simplification': 0.0001,
     },
-    'L.A. City Council Districts (2012)': {
+    'Los Angeles City Council Districts (2012)': {
         'file': 'la-city-council/2012/la-city-council.shp',
-        'singular': 'L.A. City Council District (2012)',
+        'singular': 'Los Angeles City Council District (2012)',
         'kind_first': False,
         'ider': utils.simple_namer(['District'], normalizer=int),
         'namer': utils.simple_namer(['District'], normalizer=int),
