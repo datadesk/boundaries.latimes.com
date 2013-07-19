@@ -19,9 +19,7 @@ var default_lon = parseFloat(example_string[1]);
 var place = finder_settings.EXAMPLE_PLACE;
 
 // More globals
-var geolocate_supported = true; // until prove false
 var geocoder = new google.maps.Geocoder();
-var outside = false; // until prove true
 var map = null;
 var user_marker = null;
 var displayed_slug = null;
@@ -51,7 +49,6 @@ function init_map(lat, lng) {
     }
     var center = new L.LatLng(lat, lng);
     map.panTo(center);
-    check_for_locale(center);
     resize_listener(center);
 }
 
@@ -86,30 +83,6 @@ function handle_geocode(results, status) {
     process_location(lat, lng);
 }
 
-function geolocate() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(geolocation_success, geolocation_error);
-    } else {
-        use_default_location();
-        $('#resultwarning').html("Your browser does not support determining your location, so we're showing " + place + ".");
-        $('#resultwarning').show();
-        geolocate_supported = false;
-    }
-}
-
-function geolocation_success(position) {
-    process_location(position.coords.latitude, position.coords.longitude)
-    ll = new L.LatLng(position.coords.latitude, position.coords.longitude);
-    geocode(ll);
-    check_for_locale(ll);
-}
-
-function geolocation_error() {
-    use_default_location();
-    $('#resultwarning').html("Your browser does not support automatically determining your location so we're showing you " + place + ".");
-    $('#resultwarning').show();
-}
-
 function process_location(lat, lng) {
     lat = Math.round(lat*10000)/10000;
     lng = Math.round(lng*10000)/10000;
@@ -123,17 +96,6 @@ function process_location(lat, lng) {
     show_user_marker(lat, lng);
     get_boundaries(lat, lng);
 }
-
-function check_for_locale(center) {
-    if (!bounding_box.contains(center)) {
-        show_outside();
-        outside = true;
-    } else {
-        hide_outside();
-        outside = false;
-    }
-}
-
 
 // Use boundary service to lookup what areas the location falls within
 function get_boundaries(lat, lng) {
@@ -213,26 +175,6 @@ function display_boundary(slug, no_fit) {
     }
 }
 
-
-function switch_page(page_id) {
-    if (outside) {
-        show_outside();
-    }
-    resize_end_trigger(); 
-    if (!map) {
-       geolocate();
-    }
-}
-
-
-function show_outside() {
-    $('#outside').fadeIn(500);
-}
-
-function hide_outside() {
-    $('#outside').fadeOut(250);
-}
-
 /* DOM EVENT HANDLERS */
 function resize_listener(center) {
     $(this).bind('resize_end', function(){ 
@@ -263,7 +205,6 @@ function address_search() {
 }
 
 $(document).ready(function() {
-    $('#use-current-location').click(geolocate);
     $('#use-default-location').click(use_default_location);
     $('#location-form').geocodify({
         onSelect: function (result) { 
@@ -290,5 +231,6 @@ $(document).ready(function() {
          return filteredResults;
         }
     });
-    switch_page();
+    resize_end_trigger(); 
+    use_default_location();
 });
