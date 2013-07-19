@@ -277,9 +277,6 @@ $(document).ready(function() {
             new google.maps.LatLng(minX, minY),
             new google.maps.LatLng(maxX, maxY)
         ),
-        width: 350,
-        height: 26,
-        fontSize: '14px',
         filterResults: function(results) {
          var filteredResults =[];
          $.each(results, function(i,val) {
