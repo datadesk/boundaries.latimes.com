@@ -1,7 +1,7 @@
 {% load toolbox_tags %}
 var jsonLayer;
 var selected;
-var minZoom = {% if obj.count < 500 %}8{% else %}12{% endif %};
+var minZoom = {% if obj.count < 1000 %}8{% else %}12{% endif %};
 
 var center = new L.LatLng(34.05246386116084,-118.24546337127686);
 var map = new L.Map('map-canvas', {
@@ -66,7 +66,7 @@ var onEachFeature = function(feature, layer) {
 
 
 var reloadLayer = function () {
-    var url = "/1.0/boundary/?format=geojson&limit=500&sets={{ obj.slug }}&bbox=" + map.getBounds().toBBoxString();
+    var url = "/1.0/boundary/?format=geojson&limit=1000&sets={{ obj.slug }}&bbox=" + map.getBounds().toBBoxString();
     $.ajax({
         type: "GET",
         url: url,
