@@ -67,6 +67,7 @@ var onEachFeature = function(feature, layer) {
 
 var reloadLayer = function () {
     var url = "/1.0/boundary/?format=geojson&limit=1000&sets={{ obj.slug }}&bbox=" + map.getBounds().toBBoxString();
+    $("#loader").show();
     $.ajax({
         type: "GET",
         url: url,
@@ -77,9 +78,11 @@ var reloadLayer = function () {
                 style: defaultStyle,
                 onEachFeature: onEachFeature
             }).addTo(map);
+            $("#loader").hide();
         }
     });
 }
+
 reloadLayer();
 map.on('moveend', reloadLayer);
 

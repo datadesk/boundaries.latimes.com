@@ -22,7 +22,12 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <div id="map-canvas"></div>
+        <div id="map-wrapper" style="position:relative;">
+            <div id="map-canvas"></div>
+            <div id="loader" style="position:absolute; top: 190px; left: 40%; z-index:10000;">
+                <center><img src="{{ STATIC_URL }}img/ajax-loader.gif"></center>
+            </div>
+        </div>
     </div>
 </div>
 
