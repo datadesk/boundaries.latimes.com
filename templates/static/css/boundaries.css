@@ -22,6 +22,12 @@ h3.kicker {
     padding: 0;
     margin: 0 0 10px 0;
 }
+h3.kicker a {
+    color: black;
+}
+h3.kicker a:hover {
+    text-decoration:underline;
+}
 #outside, #resultwarning {
     line-height: 140%;
     padding: 10px 0;

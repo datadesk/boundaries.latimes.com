@@ -78,6 +78,16 @@ var reloadLayer = function () {
                 onEachFeature: onEachFeature
             }).addTo(map);
             $("#loader").hide();
+            {% if obj.count > 1000 %}
+            if (lat && lng) {
+                var results = leafletPip.pointInLayer([lng, lat], jsonLayer);
+                if (results.length) {
+                    results[0].fire('click');
+                };
+            }
+            lat = null;
+            lng = null; 
+           {% endif %}
         }
     });
 }
