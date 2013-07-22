@@ -64,7 +64,6 @@ var onEachFeature = function(feature, layer) {
     })(layer, feature);
 };
 
-
 var reloadLayer = function () {
     var url = "/1.0/boundary/?format=geojson&limit=1000&sets={{ obj.slug }}&bbox=" + map.getBounds().toBBoxString();
     $("#loader").show();
@@ -84,7 +83,9 @@ var reloadLayer = function () {
 }
 
 reloadLayer();
+{% if obj.count > 1000 %}
 map.on('moveend', reloadLayer);
+{% endif %}
 
 
 
