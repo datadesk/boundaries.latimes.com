@@ -1,6 +1,16 @@
 {% extends 'blocks.html' %}
 {% load humanize %}
 
+{% block extra-css %}
+    {{ block.super }}
+    <style type="text/css">
+        table {
+            font-size:13px;
+        }
+    </style>
+{% endblock %}
+
+
 {% block content %}
 <div class="row-fluid header">
     <div class="span7">
@@ -52,16 +62,17 @@
             <td>{{ obj.count|intcomma }}</td>
             <td>{{ obj.domain }}</td>
             <td>
-                    <a href="/1.0/boundary-set/{{ obj.slug }}/">JSON</a>, 
-                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=jsonp">JSONP</a>
-                </td>
+                <a href="/1.0/boundary-set/{{ obj.slug }}/">JSON</a>, 
+                <a href="/1.0/boundary-set/{{ obj.slug }}/?format=jsonp">JSONP</a>
+            </td>
             <td>
-                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=geojson">GeoJSON</a>, 
-                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=kml">KML</a>,
-                    <a href="/1.0/boundary-set/{{ obj.slug }}/?format=shp">SHP</a>
-                </td>
+                <a href="/1.0/boundary-set/{{ obj.slug }}/?format=geojson">GeoJSON</a>, 
+                <a href="/1.0/boundary-set/{{ obj.slug }}/?format=kml">KML</a>,
+                <a href="/1.0/boundary-set/{{ obj.slug }}/?format=shp">SHP</a>
+            </td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
 
