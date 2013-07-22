@@ -82,7 +82,10 @@ var reloadLayer = function () {
             if (lat && lng) {
                 var results = leafletPip.pointInLayer([lng, lat], jsonLayer);
                 if (results.length) {
-                    results[0].fire('click');
+                    if (results[0] != selected) {
+                        results[0].fire('click');
+                        selected = results;
+                    }
                 };
             }
             lat = null;

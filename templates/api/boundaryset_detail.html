@@ -111,6 +111,7 @@ var maxY = parseFloat(bbox_string[3]);
 var minX = parseFloat(bbox_string[0]);
 var maxX = parseFloat(bbox_string[2]);
 var user_marker;
+var selected;
 function show_user_marker(lat, lng) {
     var ll = new L.LatLng(lat, lng);
     if (user_marker != null) {
@@ -133,7 +134,10 @@ $('#location-form').geocodify({
         {% if obj.count < 1000 %}
         var results = leafletPip.pointInLayer([lng, lat], jsonLayer);
         if (results.length) {
-            results[0].fire('click');
+            if (results[0] != selected) {
+                results[0].fire('click');
+                selected = results;
+            }
         };
        {% endif %}
     },
