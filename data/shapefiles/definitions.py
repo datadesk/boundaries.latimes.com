@@ -537,7 +537,7 @@ SHAPEFILES = {
         'authority': 'Los Angeles Times',
         'domain': 'L.A. County',
         'last_updated': date(2010, 5, 24),
-        'href': 'http://projects.latimes.com/mapping-la/about/',
+        'href': 'http://maps.latimes.com/about/',
         'notes': 'The current version of L.A. County regions as defined by the Los Angeles Times',
         'encoding': '',
         'srid': '4326',
