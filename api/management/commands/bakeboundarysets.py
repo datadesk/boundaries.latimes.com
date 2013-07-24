@@ -29,9 +29,9 @@ class Command(BaseCommand):
         )
         bucket = conn.get_bucket(self.bucket)
         # Loop thru the BoundarySets and do the job
-        for bs in BoundarySet.objects.all()[10:11]:
+        for bs in BoundarySet.objects.all():
             url = "/1.0/boundary-set/%s/" % bs.slug
-            for format in ['geojson', 'kml', 'shp'][1:2]:
+            for format in ['geojson', 'kml', 'shp']:
                 print "- Archiving %s in %s" % (bs.slug, format)
                 # Get the data
                 func, args, kwargs = resolve(url)
