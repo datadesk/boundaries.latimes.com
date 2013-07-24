@@ -1,8 +1,10 @@
 import boto
-import requests
 from boto.s3.key import Key
 from django.conf import settings
+from django.core.urlresolvers import resolve
+from django.test.client import RequestFactory
 from boundaryservice.models import BoundarySet
+from boundaryservice.resources import BoundarySetResource
 from django.core.management.base import BaseCommand, CommandError
 
 
@@ -30,10 +32,14 @@ class Command(BaseCommand):
         bucket = conn.get_bucket(self.bucket)
         # Loop thru the BoundarySets and do the job
         for bs in BoundarySet.objects.all():
+            url = "/1.0/boundary-set/%s/" % bs.slug
             for format in ['geojson', 'kml', 'shp']:
-                this_url = self.url % dict(slug=bs.slug, format=format)
                 print "- Archiving %s in %s" % (bs.slug, format)
-                data = requests.get(this_url).text
+                # Get the data
+                func, args, kwargs = resolve(url)
+                request = RequestFactory().get(url + "?format=%s" % format)
+                data = func(request, *args, **kwargs)
+                # Upload it to S3
                 k = Key(bucket)
                 k.key = "archive/1.0/boundary-set/%(slug)s.%(ext)s" % dict(
                     slug=bs.slug,
@@ -42,4 +48,3 @@ class Command(BaseCommand):
                 k.set_metadata('Content-Type', self.content_type[format])
                 k.set_contents_from_string(data)
                 k.set_acl('public-read')
-
