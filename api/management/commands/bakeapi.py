@@ -30,7 +30,7 @@ class Command(BaseCommand):
         bucket = conn.get_bucket(self.bucket)
         # Loop thru the BoundarySets and do the job
         for bs in BoundarySet.objects.all():
-            for format in ['shp']:
+            for format in ['geojson', 'kml', 'shp']:
                 this_url = self.url % dict(slug=bs.slug, format=format)
                 print "- Archiving %s in %s" % (bs.slug, format)
                 data = requests.get(this_url).text
