@@ -11,11 +11,13 @@ class Command(BaseCommand):
     help = 'Bake big files to S3'
     bucket = 'boundaries.latimes.com'
     ext = {
+        'json': 'json',
         'geojson': 'geojson',
         'kml': 'kml',
         'shp': 'zip',
     }
     content_type = {
+        'json': 'application/json',
         'geojson': 'application/geo+json',
         'kml': 'application/vnd.google-earth.kml+xml',
         'shp': 'application/zip',
