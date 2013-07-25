@@ -1,6 +1,7 @@
 import sitemaps
 from django.conf import settings
 from django.contrib import admin
+from views import baked_file_redirects
 from django.views.generic import TemplateView
 from django.conf.urls import patterns, include, url
 from django.views.static import serve as static_serve
@@ -8,6 +9,10 @@ from django.contrib.admin.views.decorators import staff_member_required
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    # Baked out urls to redirect to
+    url(r'^1.0/(?P<resource_name>[\w\d_.-]+)/(?P<slug>[\w\d_.-]+)/$',
+        baked_file_redirects),
+    # Default urls
     (r'', include('boundaryservice.urls')),
     (r'', include('finder.urls')),
     (r'', include('api.urls')),
@@ -21,7 +26,6 @@ urlpatterns = patterns('',
         template_name='robots.txt',
         content_type='text/plain',
     ), name='robots-txt'),
-
 )
 
 if settings.DEBUG:

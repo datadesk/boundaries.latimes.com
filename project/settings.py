@@ -189,6 +189,7 @@ EXAMPLE_PLACE_LAT_LNG = '34.05246386116084,-118.24546337127686'
 EXAMPLE_PLACE_BBOX = '31.5037,-122.3272,36.1912,-112.044'
 EXAMPLE_UNIT = 'kilometre'
 EXAMPLE_UNIT_CODE = 'km'
+ARCHIVE_BASE_URL = 'https://s3-us-west-2.amazonaws.com/boundaries.latimes.com/archive'
 
 MUNIN_ROOT = '/var/cache/munin/www/'
 
