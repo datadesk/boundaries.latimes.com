@@ -45,10 +45,20 @@ h3.kicker a:hover {
 }
 table {
     font-family: 'BentonGothicTabMedium', Arial, sans-serif;
+    width:100%;
+    display: table;
 }
 table th {
     font-family: 'bentongothictabbold', Arial, sans-serif;
     font-weight:normal !important;
+    display:table-cell;
+}
+table tr {
+    width:100%;
+    display:table-row;
+}
+table td {
+    display:table-cell;
 }
 .info {
     background-color: #D9EDF7;

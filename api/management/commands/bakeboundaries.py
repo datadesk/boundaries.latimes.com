@@ -31,7 +31,7 @@ class Command(BaseCommand):
         # Loop thru the BoundarySets and do the job
         for b in Boundary.objects.all():
             url = "/1.0/boundary/%s/" % b.slug
-            for format in ['geojson', 'kml', 'shp']:
+            for format in ['json',]: #'geojson', 'kml', 'shp']:
                 print "- Archiving %s in %s" % (b.slug, format)
                 # Get the data
                 func, args, kwargs = resolve(url)

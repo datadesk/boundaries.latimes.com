@@ -530,7 +530,7 @@ SHAPEFILES = {
     },
     'L.A. County Regions (Current)': {
         'file': 'neighborhoods/v5/regions.shp',
-        'singular': 'L.A. County Region (V5)',
+        'singular': 'L.A. County Region (Current)',
         'kind_first': False,
         'ider': utils.simple_namer(['slug']),
         'namer': utils.simple_namer(['name']),
@@ -560,7 +560,7 @@ SHAPEFILES = {
     },
     'L.A. County Municipal Regions (Current)': {
         'file': 'neighborhoods/v5/municipalregions.shp',
-        'singular': 'L.A. County Municipal Region (V5)',
+        'singular': 'L.A. County Municipal Region (Current)',
         'kind_first': False,
         'ider': utils.simple_namer(['slug']),
         'namer': utils.simple_namer(['name']),
@@ -650,7 +650,7 @@ SHAPEFILES = {
     },
     'L.A. County Neighborhoods (Current)': {
         'file': 'neighborhoods/v5/neighborhoods.shp',
-        'singular': 'L.A. County Neighborhood (V5)',
+        'singular': 'L.A. County Neighborhood (Current)',
         'kind_first': False,
         'ider': utils.simple_namer(['slug']),
         'namer': utils.simple_namer(['name']),
