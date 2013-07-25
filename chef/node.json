@@ -9,7 +9,6 @@
     "datadesk::varnish",
     "datadesk::memcached",
     "datadesk::munin",
-    "datadesk::monit",
     "datadesk::cron"
     ],
     "base_packages": [
