@@ -76,8 +76,9 @@ var reloadLayer = function () {
         url: url,
         dataType: 'json',
         success: function (response) {
+            var geojson = {% if obj.count > 1000 %}response.geojson{% else %}response{% endif %};
             if (jsonLayer) { map.removeLayer(jsonLayer); }
-            jsonLayer = new L.geoJson(response.geojson, {
+            jsonLayer = new L.geoJson(geojson, {
                 style: defaultStyle,
                 onEachFeature: onEachFeature
             }).addTo(map);
