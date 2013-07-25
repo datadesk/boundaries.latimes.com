@@ -65,7 +65,11 @@ var onEachFeature = function(feature, layer) {
 };
 
 var reloadLayer = function () {
+    {% if obj.count > 1000 %}
     var url = "/1.0/boundary/?format=geojson&limit=1000&sets={{ obj.slug }}&bbox=" + map.getBounds().toBBoxString();
+    {% else %}
+    var url = "{{ ARCHIVE_BASE_URL }}/1.0/boundary-set/{{ obj.slug }}.geojson";
+    {% endif %}
     $("#loader").show();
     $.ajax({
         type: "GET",

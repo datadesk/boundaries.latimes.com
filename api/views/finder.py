@@ -38,6 +38,7 @@ def boundaryset_detail(request, slug):
         'obj': obj,
         'boundary_list': boundary_list,
         'settings': select_settings,
-        'json_settings': json.dumps(select_settings)
+        'json_settings': json.dumps(select_settings),
+        'ARCHIVE_BASE_URL': settings.ARCHIVE_BASE_URL,
     }
     return render(request, 'api/boundaryset_detail.html', context)
