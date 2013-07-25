@@ -129,7 +129,11 @@ $('#location-form').geocodify({
         lat = Math.round(location.lat()*10000)/10000;
         lng = Math.round(location.lng()*10000)/10000;
         show_user_marker(lat, lng);
-        map.panTo([lat, lng]);
+        if (map.getZoom() < 13) {
+            map.setView([lat, lng], 13);
+        } else {
+            map.panTo([lat, lng]);
+        }
         {% if obj.count < 1000 %}
         var results = leafletPip.pointInLayer([lng, lat], jsonLayer);
         if (results.length) {
