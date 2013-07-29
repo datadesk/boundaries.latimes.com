@@ -1,7 +1,17 @@
+from tastypie.api import Api
+from boundaryservice.views import external_id_redirects
 from django.conf.urls.defaults import patterns, include, url
+from api.resources import LATBoundarySetResource, LATBoundaryResource
 
+v1_api = Api(api_name='1.0')
+v1_api.register(LATBoundarySetResource())
+v1_api.register(LATBoundarySetResource())
 
 urlpatterns = patterns('',
+    
+    # Custom override of the standard django-boundaryservice
+    (r'^(?P<api_name>1.0)/(?P<resource_name>boundary-set)/(?P<slug>[\w\d_.-]+)/(?P<external_id>[\w\d_.-]+)$', external_id_redirects),
+    (r'', include(v1_api.urls)),
     
     # Public facing pages to display data
     url(r'^sets/$', 'api.views.finder.boundaryset_list',
