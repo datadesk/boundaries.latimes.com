@@ -1,0 +1,48 @@
+{% extends 'blocks.html' %}
+{% load humanize %}
+
+{% block extra-css %}
+    {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+<div class="row-fluid header">
+    <div class="span7">
+        <h1>Mapping L.A. Boundaries API</h1>
+    </div>
+</div>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <li><a href="/">Finder</a></li>
+      <li><a href="/sets/">Data sets</a></li>
+      <li class="active"><a href="/about/">About</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid header">
+    <div class="span7">
+        <p>The goal of this site is to allow anyone to quickly browse, down­load and re­use dozens of dif­fer­ent maps cov­er­ing South­ern Cali­for­nia.</p>
+
+        <p>
+            On the <a href="/">homepage</a>, pick any point in the re­gion. You’ll get back a list of areas it falls with­in, drawn from dozens of pub­lic data­sets our team has com­piled. The list in­cludes U.S. Census tracts, city bound­ar­ies, polit­ic­al dis­tricts, po­lice and fire jur­is­dic­tions, school zones and the L.A. County neigh­bor­hoods as­sembled, in part­ner­ship with Times read­ers, as part of our Map­ping L.A. pro­ject.
+        </p>
+
+        <p>You can then down­load any of those in­di­vidu­al shapes in <a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a>, 
+<a href="https://en.wikipedia.org/wiki/KML"><span class="caps">KML</span></a> and <a href="https://en.wikipedia.org/wiki/Shapefile"><span class="caps">SHP</span></a> formats. You can also down­load en­tire bound­ary sets like, for in­stance, the 
+<span class="caps">LAPD</span>’s <a href="http://boundaries.latimes.com/set/lapd-basic-car-areas/">169 Ba­sic Car Areas</a>.</p>
+
+        <p>Be­sides quick look­ups and down­loads—good when you need to pull a fact for a story or gath­er the raw ma­ter­i­als for a simple graph­ic—the site is equipped with an <span class="caps">API</span> that al­lows pro­gram­mers to write code that in­ter­acts with the data­base. For in­stance, you could sub­mit a list of dozens of ad­dresses and get back the City Coun­cil dis­trict they fall&nbsp;with­in.</p>
+
+    <p>This pro­ject was in­spired by sim­il­ar sites for <a href="http://boundaries.tribapps.com/">Chica­go</a>, <a href="http://oklahomadata.org/boundary/">Ok­lahoma</a>, <a href="http://represent.opennorth.ca/">Canada</a> and <a href="http://developer.nytimes.com/docs/districts_api">New York City</a>.</p>
+
+    <p>It is powered by a <a href="https://github.com/datadesk/django-boundaryservice">mod­i­fied ver­sion</a> of <a href="https://github.com/newsapps/django-boundaryservice">django-bound­aryser­vice</a>, an ex­cel­lent open-source pro­ject de­veloped by the Chica­go Tribune’s News Ap­plic­a­tions Team. We con­trib­uted a <a href="https://github.com/newsapps/django-boundaryservice/pull/41">series</a> <a href="https://github.com/newsapps/django-boundaryservice/pull/40">of</a> <a href="https://github.com/newsapps/django-boundaryservice/pull/35">im­prove­ments</a> to the&nbsp;code­base. </p>
+
+    <p>The site is maintanied by the staff of the <a href="http://datadesk.latimes.com">Los Angeles Times Data Desk</a>. If you have an questions, problems or suggestions for additions please contact <a href="mailto:datadesk@latimes.com">datadesk@latimes.com</a>.</p>
+
+    </div>
+</div>
+{% endblock %}

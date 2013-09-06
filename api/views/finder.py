@@ -8,6 +8,14 @@ from boundaryservice.models import BoundarySet, Boundary
 from django.shortcuts import render, get_object_or_404
 
 
+def about(request):
+    """
+    A page that explains what the site is about.
+    """
+    context = {}
+    return render(request, 'api/about.html', context)
+
+
 def boundaryset_list(request):
     """
     A list of all the available boundary sets.

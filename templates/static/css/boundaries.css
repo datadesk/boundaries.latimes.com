@@ -103,4 +103,9 @@ table td {
 .boundaryset table {
     margin: 0;
 }
-
+p {
+    font-size:16px;
+    font-family: Georgia, serif;
+    margin: 14px 0;
+    line-height:140%;
+}

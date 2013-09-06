@@ -19,6 +19,10 @@ urlpatterns = patterns('',
     url(r'^set/(?P<slug>[-\w]+)/$', 'api.views.finder.boundaryset_detail',
         name="api-boundaryset-detail"),
     
+    # Help
+    url(r'^about/$', 'api.views.finder.about',
+        name="api-about"),
+    
     # News Near Me custom API endpoints
     url(r'^api/v1/news-near-me/getList.json$',
         'api.views.newsnearme.newsnearme_list',
