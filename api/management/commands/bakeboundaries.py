@@ -1,6 +1,7 @@
 import boto
 from boto.s3.key import Key
 from django.conf import settings
+from optparse import make_option
 from boundaryservice.models import Boundary
 from django.core.urlresolvers import resolve
 from django.test.client import RequestFactory
@@ -9,6 +10,10 @@ from django.core.management.base import BaseCommand, CommandError
 
 class Command(BaseCommand):
     help = 'Bake big files to S3'
+    option_list = BaseCommand.option_list + (
+        make_option('-o', '--only', action='store', dest='only',
+            default=False, help='Only load the provided boundary sets. Accepts a comma-delimited list of slugs.'),
+    )
     bucket = 'boundaries.latimes.com'
     ext = {
         'json': 'json',
@@ -30,10 +35,14 @@ class Command(BaseCommand):
             settings.AWS_SECRET_ACCESS_KEY,
         )
         bucket = conn.get_bucket(self.bucket)
+        obj_list = Boundary.objects.all()
+        if options['only']:
+            only = [s.strip() for s in options['only'].split(',') if s.strip()]
+            obj_list = obj_list.filter(set__slug__in=only)
         # Loop thru the BoundarySets and do the job
-        for b in Boundary.objects.all():
+        for b in obj_list:
             url = "/1.0/boundary/%s/" % b.slug
-            for format in ['json',]: #'geojson', 'kml', 'shp']:
+            for format in ['json', 'geojson', 'kml', 'shp']:
                 print "- Archiving %s in %s" % (b.slug, format)
                 # Get the data
                 func, args, kwargs = resolve(url)
