@@ -13,9 +13,9 @@ def newsnearme_list(request):
     """
     context = {
         'hood_list': Boundary.objects.filter(
-            set__slug='la-county-neighborhoods-v5').only("name", "slug", "simple_shape"),
+            set__slug='la-county-neighborhoods-v6').only("name", "slug", "simple_shape"),
         'region_list': Boundary.objects.filter(
-            set__slug='la-county-regions-v5').only("name", "slug"),
+            set__slug='la-county-regions-v6').only("name", "slug"),
     }
     response = render(request, 'api/newsnearme/getList.json', context, 
         content_type='application/javascript')
@@ -40,7 +40,7 @@ def newsnearme_detail(request):
     # Figure out what areas it's in.
     try:
         hood = Boundary.objects.filter(
-            set__slug='la-county-neighborhoods-v5').only(
+            set__slug='la-county-neighborhoods-v6').only(
             'name', 'slug', 'simple_shape').filter(
             shape__intersects=point_obj
         )[0]
@@ -48,7 +48,7 @@ def newsnearme_detail(request):
         hood = None
     try:
         region = Boundary.objects.filter(
-            set__slug='la-county-regions-v5').only(
+            set__slug='la-county-regions-v6').only(
             'name', 'slug').filter(
             shape__intersects=point_obj
         )[0]
