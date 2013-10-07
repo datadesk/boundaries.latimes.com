@@ -10,8 +10,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Baked out urls to redirect to
-#    url(r'^1.0/(?P<resource_name>[\w\d_.-]+)/(?P<slug>[\w\d_.-]+)/$',
-#        baked_file_redirects),
+    url(r'^1.0/(?P<resource_name>[\w\d_.-]+)/(?P<slug>[\w\d_.-]+)/$',
+        baked_file_redirects),
     # Default urls
     (r'', include('boundaryservice.urls')),
     (r'', include('finder.urls')),
