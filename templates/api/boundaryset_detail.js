@@ -14,7 +14,7 @@ var map = new L.Map('map-canvas', {
     )
 });
 map.setView(center, minZoom);
-tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.3.0/{z}/{x}/{y}.png", {
+tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.4.0/{z}/{x}/{y}.png", {
     attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
     subdomains: [
         'tiles1',
