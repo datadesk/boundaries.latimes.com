@@ -36,7 +36,7 @@ function init_map(lat, lng) {
             maxZoom: 16,
             minZoom:9
         });
-        tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.3.0/{z}/{x}/{y}.png", {
+        tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.4.0/{z}/{x}/{y}.png", {
             attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
             subdomains: [
                 'tiles1',
