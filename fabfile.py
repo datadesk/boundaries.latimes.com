@@ -209,13 +209,16 @@ def deploy():
 # Local
 #
 
-def update_templates():
+def update_templates(template_path='./templates'):
     """
-    Download the latest datadesk template release and load it into the system.
+    Download the latest template release and load it into your system.
+    It will unzip to the template_path you provide. The default is "./templates"
     """
-    local("curl -O http://databank.latimes.com/latimes-datadesk-template/latest.zip")
-    local("unzip -o latest.zip")
-    local("rm latest.zip")
+    with lcd(template_path):
+        local("curl -O http://databank-cookbook.latimes.com/dist/templates/latest.zip")
+        local("unzip -o latest.zip")
+        local("rm latest.zip") 
+
 
 
 def rmpyc():
