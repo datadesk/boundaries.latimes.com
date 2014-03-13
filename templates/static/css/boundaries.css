@@ -1,33 +1,6 @@
 a {
     color:#2662CC;
 }
-
-#container h1 { 
-    font-family: 'LAHeadline-Regular', Georgia, serif;
-    font-size:46px;
-    margin: 0 0 5px 0;
-    padding: 0;
-}
-.container h3 { 
-    font-family: 'BentonGothicTabMedium', Arial, sans-serif;
-    font-weight:normal;
-    font-size:18px;
-    margin-top: 0;
-}
-h3.kicker {
-    font-family: 'Belizio-Black', Georgia, serif;
-    text-transform:uppercase;
-    font-size:12px;
-    line-height:12px;
-    padding: 0;
-    margin: 0 0 10px 0;
-}
-h3.kicker a {
-    color: black;
-}
-h3.kicker a:hover {
-    text-decoration:underline;
-}
 #outside, #resultwarning {
     line-height: 140%;
     padding: 10px 0;
@@ -43,69 +16,7 @@ h3.kicker a:hover {
     width:100%;
     margin: 10px 0 10px 0;
 }
-table {
-    font-family: 'BentonGothicTabMedium', Arial, sans-serif;
-    width:100%;
-    display: table;
-}
-table th {
-    font-family: 'bentongothictabbold', Arial, sans-serif;
-    font-weight:normal !important;
-    display:table-cell;
-}
-table tr {
-    width:100%;
-    display:table-row;
-}
-table td {
-    display:table-cell;
-}
 .info {
     background-color: #D9EDF7;
 }
-.navbar .nav>li>a {
-    float: none;
-    padding: 10px 15px 10px;
-    color: white;
-    text-decoration: none;
-    text-shadow: none;
-}
 
-.navbar .nav>li>a:hover {
-    float: none;
-    padding: 10px 15px 10px;
-    color: white;
-    text-decoration: underline;
-    text-shadow: none;
-}
-.navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
-    color: #555;
-    text-decoration: none;
-    background-color: white;
-    -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
-    -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,0.125);
-    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
-}
-.nav>.active>a:hover {
-    text-decoration:underline !important;
-}
-.boundaryset {
-    border-bottom:1px dotted #ccc;
-    padding: 15px 0;
-}
-.boundaryset h2 {
-    font-family: 'BentonGothicTabMedium', Arial, sans-serif;
-    font-size:22px;
-    margin:0;
-    padding: 0 0 2px 0;
-    font-weight: normal;
-}
-.boundaryset table {
-    margin: 0;
-}
-p {
-    font-size:16px;
-    font-family: Georgia, serif;
-    margin: 14px 0;
-    line-height:140%;
-}

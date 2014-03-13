@@ -5,13 +5,9 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.geocodify-0.2.0.css" type="text/css" charset="utf-8"/>
     <style type="text/css">
         #location-form {
-            margin: 0;
-            padding: 5px 0 0 0;
-            float:right;
-        }
-        #location-form-input {
-            width:315px;
-            margin-bottom:0;
+            z-index: 1000;
+            float: right;
+            margin: 10px 10px 0 0;
         }
     </style>
 {% endblock %}
@@ -38,13 +34,8 @@
 
 {% block content %}
 <div class="row-fluid header">
-    <div class="span7">
+    <div class="span12">
         <h1>Mapping L.A. Boundaries API</h1>
-    </div>
-    <div class="span5">
-        <div id="form-wrapper">
-            <form id="location-form"></form>
-        </div>
     </div>
 </div>
 
@@ -60,7 +51,9 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <div id="map-canvas"></div>
+        <div id="map-canvas">
+            <form id="location-form"></form>
+        </div>
     </div>
 </div>
 

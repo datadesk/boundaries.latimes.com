@@ -1,19 +1,9 @@
 {% extends 'blocks.html' %}
 {% load humanize %}
 
-{% block extra-css %}
-    {{ block.super }}
-    <style type="text/css">
-        table {
-            font-size:13px;
-        }
-    </style>
-{% endblock %}
-
-
 {% block content %}
 <div class="row-fluid header">
-    <div class="span7">
+    <div class="span12">
         <h1>Mapping L.A. Boundaries API</h1>
     </div>
 </div>
@@ -36,7 +26,7 @@
 </div>
 
 <div class="row-fluid">
-    <table class="span12 table table-bordered">
+    <table class="span12 table table-hover">
         <thead>
             <tr>
                 <th>Name</th>
@@ -75,5 +65,4 @@
         </tbody>
     </table>
 </div>
-
 {% endblock %}
