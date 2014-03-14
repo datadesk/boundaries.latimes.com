@@ -100,9 +100,9 @@
             var parsed = this.parseHash(hash);
             if (parsed) {
                 this.movingMap = true;
+                init_map(parsed.center.lat, parsed.center.lng);
                 show_user_marker(parsed.center.lat, parsed.center.lng);
                 get_boundaries(parsed.center.lat, parsed.center.lng);
-                this.map.setView(parsed.center, parsed.zoom);
                 this.movingMap = false;
             } else {
                 this.onMapMove(this.map);
