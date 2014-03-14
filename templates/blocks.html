@@ -30,3 +30,22 @@
 {% endblock %}
 
 {% block banner-ad %}{% endblock %}
+
+{% block nav %}
+<div id="tophat-container">
+    <div id="tophat" class="tophat-small">
+        <span id="tophat-dropdown" class="tophat-dropdown-small">
+            <hr />
+            <hr />
+            <hr />
+        </span>
+        <a id="tophat-logo" href="http://www.latimes.com/"></a>
+        <div id="tophat-title">
+        <a href="/">Mapping L.A. Boundaries API</a>
+    </div>
+    <div class="tophat-links">
+        {% include "ngux-tophat/nav/links.html" %}
+    </div>
+    </div>
+</div>
+{% endblock %} 
