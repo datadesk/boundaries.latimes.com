@@ -46,6 +46,7 @@ function init_map(lat, lng) {
             ]
         });
         map.addLayer(tiles);
+        var hash = new L.Hash(map);
     }
     var center = new L.LatLng(lat, lng);
     map.panTo(center);
