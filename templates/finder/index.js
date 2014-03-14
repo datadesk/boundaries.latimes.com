@@ -25,34 +25,9 @@ var user_marker = null;
 var displayed_slug = null;
 var displayed_polygon = null;
 var boundaries = new Array();
+var hash;
 
 // Bootstrap the map
-function init_map(lat, lng) {
-    if (map == null) {
-        var ll = new L.LatLng(lat, lng);
-        map = new L.Map('map-canvas', {
-            zoom: 14,
-            center: ll,
-            maxZoom: 16,
-            minZoom:9
-        });
-        tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.4.0/{z}/{x}/{y}.png", {
-            attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
-            subdomains: [
-                'tiles1',
-                'tiles2',
-                'tiles3',
-                'tiles4'
-            ]
-        });
-        map.addLayer(tiles);
-        var hash = new L.Hash(map);
-    }
-    var center = new L.LatLng(lat, lng);
-    map.panTo(center);
-    resize_listener(center);
-}
-
 function show_user_marker(lat, lng) {
     var ll = new L.LatLng(lat, lng);
     if (user_marker != null) {
@@ -93,7 +68,9 @@ function process_location(lat, lng) {
             lng: lng
         })
     );
-    init_map(lat, lng);
+    var center = new L.LatLng(lat, lng);
+    map.panTo(center);
+    resize_listener(center);
     show_user_marker(lat, lng);
     get_boundaries(lat, lng);
 }
@@ -196,17 +173,12 @@ function resize_end_trigger() {
     });
 }
 
-function use_default_location() {
-    process_location(default_lat, default_lon);
-}
-
 function address_search() {
     geocode($("#location-form #address").val());
     return false;
 }
 
 $(document).ready(function() {
-    $('#use-default-location').click(use_default_location);
     $('#location-form').geocodify({
         onSelect: function (result) { 
             var location = result.geometry.location;
@@ -232,6 +204,26 @@ $(document).ready(function() {
          return filteredResults;
         }
     });
-    resize_end_trigger(); 
-    use_default_location();
+    resize_end_trigger();
+
+    map = new L.Map('map-canvas', {
+        zoom: 14,
+        center: new L.LatLng(default_lat, default_lon),
+        maxZoom: 16,
+        minZoom:9
+    });
+    tiles = new L.TileLayer("http://{s}.latimes.com/quiet-la-0.4.0/{z}/{x}/{y}.png", {
+        attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
+        subdomains: [
+            'tiles1',
+            'tiles2',
+            'tiles3',
+            'tiles4'
+        ]
+    });
+    map.addLayer(tiles);
+    hash = new L.Hash(map);
+    if (!(window.location.hash)) {
+        process_location(default_lat, default_lon);
+    };
 });
