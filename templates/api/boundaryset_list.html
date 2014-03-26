@@ -1,21 +1,17 @@
 {% extends 'blocks.html' %}
 {% load humanize %}
 
+{% block chapter-links %}
+    <li><a href="/">Finder</a></li>
+    <li class="active"><a href="/sets/">Data sets</a></li>
+    <li><a href="/about/">About</a></li>
+{% endblock %}
+
 {% block content %}
 <div class="row-fluid header">
     <div class="span12">
         <h1>Mapping L.A. Boundaries API</h1>
     </div>
-</div>
-
-<div class="navbar">
-  <div class="navbar-inner">
-    <ul class="nav">
-      <li><a href="/">Finder</a></li>
-      <li class="active"><a href="/sets/">Data sets</a></li>
-      <li><a href="/about/">About</a></li>
-    </ul>
-  </div>
 </div>
 
 <div class="row-fluid">

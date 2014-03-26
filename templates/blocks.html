@@ -40,12 +40,20 @@
             <hr />
         </span>
         <a id="tophat-logo" href="http://www.latimes.com/"></a>
-        <div id="tophat-title">
-        <a href="/">Mapping L.A. Boundaries API</a>
-    </div>
-    <div class="tophat-links">
-        {% include "ngux-tophat/nav/links.html" %}
-    </div>
+        <div class="tophat-chaptering">
+            <div id="tophat-title">
+                <span class="hidden-phone">Mapping</span> L.A. Boundaries API <span class="chapter-dropdown"><i class="LATTriangleDown"></i></span>
+            </div>
+            <div class="tophat-chapters">
+                <ul>
+                    {% block chapter-links %}
+                    {% endblock %}
+                </ul>
+            </div>
+        </div> 
+        <div class="tophat-links">
+            {% include "ngux-tophat/nav/links.html" %}
+        </div>
     </div>
 </div>
 {% endblock %} 
