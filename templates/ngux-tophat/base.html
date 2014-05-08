@@ -82,53 +82,30 @@
             })();
         </script>
 
-        <!-- SiteCatalyst code version: H.1.
-        Copyright 1997-2005 Omniture, Inc. More info available at
-        http://www.omniture.com -->
-
-        <script type="text/javascript" src="http://www.latimes.com/hive/javascripts/metrics/s_code_trb.js"></script>
-        <script language="JavaScript">
-        <!--
-
         {% block omniture %}
-        s.pageName="{% block omniture-pageName %}Data Desk - Latimes.com / news / local - db.{% endblock %}";
-        s.server="latimes.com"; 
-        s.channel="Latimes.com:news:local";
-
-        s.prop38="database";
-        s.eVar21="database";
-        s.prop20=""
-
-        /* E-commerce Variables */
-        s.events=""; 
-        s.eVar20="";
-
-        s.hier1="Latimes.com:news:local"; 
-        s.hier2="news:local";
-        s.hier4="news:local";
+            <script type="text/javascript">
+                ((((window.trb || (window.trb = {})).data || (trb.data = {})).metrics || (trb.data.metrics = {})).thirdparty = {
+                    // Page naming convention:
+                    //  <site-slug>:<subdomain>:<path>:<datadesk-slug>-<page-slug>:<content-type>.
+                    // Example: 
+                    //  lat:projects.latimes.com:local:data-pat-tillman:graphic.
+                    //  (Don't miss the period at the end.)
+                    pageName: 'lat:{% block omniture-pageName %}{% endblock %}.',
+                    channel: '{% block omniture-channel %}local{% endblock %}', // Path
+                    server: '{% block omniture-server %}www.latimes.com{% endblock %}', // Full domain
+                    hier1: 'latimes:{% block omniture-full-tribune-path %}local{% endblock %}', // Path (with latimes prefix)
+                    hier2: '{% block omniture-full-latimes-path %}local{% endblock %}', // Path (again)
+                    prop2: '{% block omniture-base-latimes-path %}local{% endblock %}', // Path (again!)
+                    prop38: '{% block omniture-contenttype %}graphic{% endblock %}', // Content type
+                    eVar20: 'latimes',
+                    eVar21: 'D=c38',
+                    eVar34: 'D=ch',
+                    eVar35: 'D=gn'
+                });
+            </script>
+            <script src="http://www.latimes.com/thirdpartyservice?disablenav=true"></script>
         {% endblock %}
 
-        /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
-        var s_code=s.t();if(s_code)document.write(s_code)//-->  </script>
-        <script language="JavaScript"><!--
-        if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
-        //--></script><!--/DO NOT REMOVE/-->
-        <!-- End SiteCatalyst code version: H.1. -->
-
-        <!-- START REVENUE SCIENCE PIXELLING CODE -->
-        <script type="text/javascript" src="http://js.revsci.net/gateway/gw.js?csid=B08725"></script>
-        <script type="text/javascript">
-/*            <!--
-            DM_addEncToLoc("Site", (s.server));
-            DM_addEncToLoc("channel", (s.channel));
-            DM_addEncToLoc("keyword", (s.prop3));
-            DM_cat(s.hier1);
-            DM_tag();
-        // -->*/
-        </script>
-        <!-- END REVENUE SCIENCE PIXELLING CODE -->
-        <img width="1" alt="" height="1" src="http://pixel1739.everesttech.net/1739/p?ev_transid=121509852926119682678&amp;ev_Latimes.com_news_s_pageview=1">
-        
     {% endblock %}
 
     <footer>
@@ -141,7 +118,7 @@
                     <a href="http://privacy.tribune.com">Privacy Policy</a> | 
                     <a href="http://www.latimes.com/lat-about-our-ads,0,3875412.htmlstory">About Our Ads</a> | 
                     <a href="http://www.latimes.com/services/site/la-reprint-request-splash,0,6731163.htmlstory">&copy; <script type="text/javascript">document.write(new Date().getFullYear())</script></a> | 
-                    <a href="http://www.latimes.com/about/">About this site</a>
+                    <a href="http://www.latimes.com/about/">About This Site</a>
                 </div>
             </div>
         </div>
