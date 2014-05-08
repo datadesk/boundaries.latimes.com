@@ -1,5 +1,7 @@
 {% extends 'blocks.html' %}
 
+{% block omniture-pageName %}{{ block.super }}index:graphic{% endblock %}
+
 {% block extra-css %}
     {{ block.super }}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.geocodify-0.2.0.css" type="text/css" charset="utf-8"/>
@@ -65,6 +67,3 @@
     </div>
 </div>
 {% endblock %}
-
-
-

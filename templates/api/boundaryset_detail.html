@@ -2,6 +2,7 @@
 {% load toolbox_tags %}
 
 {% block title %}{{ obj }} - {{ block.super }}{% endblock %}
+{% block omniture-pageName %}{{ block.super }}set-{{ obj|slugify}}:graphic{% endblock %}
 
 {% block extra-css %}
     {{ block.super }}
