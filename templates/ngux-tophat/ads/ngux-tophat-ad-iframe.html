@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html><head>
 <title>ad iframe</title>
@@ -11,7 +12,7 @@ var inDapIF = true;
 (function() {
   var useSSL = 'https:' == document.location.protocol;
   var src = (useSSL ? 'https:' : 'http:') +
-    '//www.googletagservices.com/tag/js/gpt_mobile.js';
+    '//www.googletagservices.com/tag/js/gpt.js';
   document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
 })();
 </script>
@@ -32,30 +33,30 @@ var inDapIF = true;
 <body>
 <div id='div-gpt-ad'>
   <script type='text/javascript'>
-    if (data['type'] === 'oop') {
-      var adslot = googletag.defineOutOfPageSlot(data.iu, 'div-gpt-ad');
-    } else {
-      var adslot = googletag.defineSlot(data.iu, [parseInt(data.width), parseInt(data.height)], 'div-gpt-ad')
-        .addService(googletag.pubads())
-        .setTargeting('ptype', data.ptype)
-        .setTargeting('ss', data.ss)
-        .setTargeting('tile', data.tile)
-        .setTargeting('pos', data.pos)
-        .setTargeting('rg', data.rg)
-        .setTargeting('c', data.c)
-        .setTargeting('ord', data.ord);
-      if (data.rg === 'r') {
-        adslot
-          .setTargeting('by', data.by)
-          .setTargeting('gr', data.gr)
-          .setTargeting('zc', data.zc);
-      }
-      if (data.ref) {
-        adslot.setTargeting('ref', data.ref);
-      }
-      if (data.ll) {
-        adslot.setTargeting('ll', data.ll);
-      }
+    var service = googletag.pubads();
+    service.setCorrelator(parseInt(data.ord));
+
+    var adslot = googletag
+      .defineSlot(data.iu, [parseInt(data.width), parseInt(data.height)], 'div-gpt-ad')
+      .addService(service)
+      .setTargeting('ptype', data.ptype)
+      .setTargeting('ss', data.ss)
+      .setTargeting('tile', data.tile)
+      .setTargeting('pos', data.pos)
+      .setTargeting('rg', data.rg)
+      .setTargeting('c', data.c)
+      .setTargeting('ord', data.ord);
+    if (data.rg === 'r') {
+      adslot
+        .setTargeting('by', data.by)
+        .setTargeting('gr', data.gr)
+        .setTargeting('zc', data.zc);
+    }
+    if (data.ref) {
+      adslot.setTargeting('ref', data.ref);
+    }
+    if (data.ll) {
+      adslot.setTargeting('ll', data.ll);
     }
 
     googletag.enableServices();
@@ -64,4 +65,3 @@ var inDapIF = true;
 </div>
 </body>
 </html>
-
