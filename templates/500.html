@@ -1,0 +1,21 @@
+{% extends 'ngux-tophat/base.html' %}
+
+{% block title %}Server Error - {{ block.super }}{% endblock %}
+
+{% block omniture-pageName %}{{ block.super }}page not found{% endblock %}
+{% block omniture-contenttype %}page not found{% endblock %}
+
+{% block content %}
+<div style="margin-left:12px;">
+    <h1 class="detail-title pad10vert">We're sorry.</h1>
+    <div style="font-size:16px">
+        <p>There was a mistake loading your page.</p>
+        <p style="margin-top:12px;">
+            The site administrator has been notified about the problem. 
+        </p>
+        <p style="margin-top:12px;">
+            Please wait a few minutes and try again.
+        </p>
+    </div>
+</div>
+{% endblock %}
