@@ -93,7 +93,8 @@
                     hier2: '{% block omniture-full-latimes-path %}local{% endblock %}', // Path (again)
                     prop2: '{% block omniture-base-latimes-path %}local{% endblock %}', // Path (again!)
                     prop38: '{% block omniture-contenttype %}graphic{% endblock %}', // Content type
-                    evar1: '{% block omniture-url %}{{ request.build_absolute_uri }}{% endblock %}', // This URL
+                    evar1: {% block omniture-url %}window.location.href{% endblock %}, // This URL
+                    evar2: {% block omniture-referring-url %}document.referrer{% endblock %}, // The referring URL
                     prop57: 'D=c38',
                     eVar20: 'latimes',
                     eVar21: 'D=c38',
