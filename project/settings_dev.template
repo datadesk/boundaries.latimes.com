@@ -22,3 +22,4 @@ CACHES = {
 }
 STATIC_URL = '/static/'
 AWS_BUCKET_NAME = 'boundaries.latimes.com'
+WSGI_APPLICATION = 'project.wsgi_dev.application'

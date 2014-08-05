@@ -24,4 +24,4 @@ CACHES = {
 STATIC_URL = 'https://s3-us-west-2.amazonaws.com/boundaries.latimes.com/static/'
 AWS_STORAGE_BUCKET_NAME = 'boundaries.latimes.com'
 AWS_BUCKET_NAME = 'boundaries.latimes.com'
-
+WSGI_APPLICATION = 'project.wsgi_prod.application'
