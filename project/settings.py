@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'boundaries.latimes.com',
     '54.245.116.71',
     'localhost',
+    'ec2-54-185-44-32.us-west-2.compute.amazonaws.com',
 ]
 TIME_ZONE = 'America/Los_Angeles'
 LANGUAGE_CODE = 'en-us'

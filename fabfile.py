@@ -21,12 +21,12 @@ env.app_user = 'datadesk'
 env.project_dir = '/apps/boundaries.latimes.com/repo/'
 env.activate = "source /apps/boundaries.latimes.com/bin/activate"
 env.branch = "master"
-env.AWS_SECRET_ACCESS_KEY = 'ca31LpNVIibffmv3X902B0X2defPhCYIF0cMYDY5'
-env.AWS_ACCESS_KEY_ID = 'AKIAJQ6NTQOSSAF7WV6Q'
+env.AWS_SECRET_ACCESS_KEY = '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'
+env.AWS_ACCESS_KEY_ID = 'AKIAIDW7S34FFXN4F4WA'
 
 
 def new():
-    env.hosts = ("ec2-54-245-48-59.us-west-2.compute.amazonaws.com",)
+    env.hosts = ("ec2-54-185-44-32.us-west-2.compute.amazonaws.com",)
 
 
 def prod():
@@ -36,22 +36,29 @@ def prod():
 # Bootstrapping
 #
 
-def create_server(region='us-west-2', ami='ami-1cdd532c',
-    key_name='ben-datadesk', instance_type='m1.small'):
+def create_server(
+    region='us-west-2',
+    ami='ami-1cdd532c',
+    key_name='ben-datadesk',
+    instance_type='m1.small',
+    block_gb_size=10,
+    volume_type='gp2',
+    subnet_id='subnet-3e349e49',
+):
     """
     Spin up a new server on Amazon EC2.
-    
+
     Returns the id and public address.
-    
+
     By default, we use Ubuntu 12.04 LTS
     """
     print("Warming up...")
     conn = boto.ec2.connect_to_region(
-            region,
-            aws_access_key_id = env.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key = env.AWS_SECRET_ACCESS_KEY,
+        region,
+        aws_access_key_id = env.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key = env.AWS_SECRET_ACCESS_KEY,
     )
-    
+
     print("Reserving an instance...")
     reservation = conn.run_instances(
         ami,
@@ -112,15 +119,15 @@ def cook():
 def bootstrap():
     """
     Pull it all together and fire up a new server.
-    
+
     Example usage:
-    
+
         $ fab new bootstrap
-    
+
     """
     instance_id, public_dns = create_server()
     # We have to sleep a bit because Amazon reports the server as 'running'
-    # before you can actually SSH in. 
+    # before you can actually SSH in.
     print "Give us a sec..."
     time.sleep(30)
     with settings(host_string=public_dns):
@@ -217,7 +224,7 @@ def update_templates(template_path='./templates'):
     with lcd(template_path):
         local("curl -O http://databank-cookbook.latimes.com/dist/templates/latest.zip")
         local("unzip -o latest.zip")
-        local("rm latest.zip") 
+        local("rm latest.zip")
 
 
 
@@ -240,10 +247,10 @@ def rs(port=8000):
     Fire up the Django test server, after cleaning out any .pyc files.
 
     Example usage:
-    
+
         $ fab rs
         $ fab rs:port=9000
-    
+
     """
     with settings(warn_only=True):
         rmpyc()
@@ -255,10 +262,10 @@ def bs(port=8000):
     Fire up our custom build server, after cleaning out any .pyc files.
 
     Example usage:
-    
+
         $ fab rs
         $ fab rs:port=9000
-    
+
     """
     rmpyc()
     local("python manage.py buildserver %s" % port, capture=False)
@@ -269,9 +276,9 @@ def sh():
     Fire up the Django shell, after cleaning out any .pyc files.
 
     Example usage:
-    
+
         $ fab sh
-    
+
     """
     rmpyc()
     local("python manage.py shell", capture=False)
@@ -280,18 +287,18 @@ def sh():
 def load():
     """
     Prints the current load values.
-    
+
     Example usage:
-    
+
         $ fab stage load
         $ fab prod load
-        
+
     """
     def _set_color(load):
         """
-        Sets the terminal color for an load average value depending on how 
+        Sets the terminal color for an load average value depending on how
         high it is.
-        
+
         Accepts a string formatted floating point.
 
         Returns a formatted string you can print.
@@ -307,7 +314,7 @@ def load():
         else:
             # Return red
             return template % (31, value)
-    
+
     with hide('everything'):
         # Fetch the data
         uptime = run("uptime")
