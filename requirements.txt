@@ -1,5 +1,4 @@
 Django==1.5.4
-GDAL==1.9.1
 South==0.8.1
 argparse==1.2.1
 boto==2.9.8
