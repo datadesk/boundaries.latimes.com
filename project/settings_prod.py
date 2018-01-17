@@ -9,7 +9,7 @@ DATABASES = {
         'USER': 'boundaries', 
         'PASSWORD': '&E0w#7u8#f|,v3{',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
