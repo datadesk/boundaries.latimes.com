@@ -3,7 +3,7 @@ South==0.8.1
 argparse==1.2.1
 boto==2.9.8
 -e git+ssh://git@github.com/datadesk/django-boundaryservice.git@055217834c0ca87be08dcd50cb140712313079f8#egg=django_boundaryservice-master
-django-debug-toolbar==1.0.1
+django-debug-toolbar==1.11.1
 django-tastypie==0.9.12
 mimeparse==0.1.3
 psycopg2==2.4.6
